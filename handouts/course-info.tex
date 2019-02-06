@@ -1,0 +1,149 @@
+\documentclass[11pt]{article}
+\usepackage{amssymb,amsmath}
+\usepackage{array}
+\usepackage{fancyheadings}
+
+% see https://tex.stackexchange.com/questions/10684/vertical-space-in-lists
+% for why we include this package.
+\usepackage{paralist}
+
+
+\parindent0pt
+%\parskip1.3ex
+\parskip=4pt %1.6ex
+
+%\fontfamily{ptm}\selectfont
+%\renewcommand{\rmdefault}{ptm}
+%\renewcommand{\familydefault}{ptm}
+
+\oddsidemargin-10mm 
+\evensidemargin-10mm 
+\textwidth183mm
+\topmargin-25mm 
+\textheight300mm
+
+\setlength{\marginparwidth}{5mm}
+
+\pagestyle{fancy}
+%\headrulewidth0pt
+\cfoot{}
+\chead{}
+
+\begin{document}
+
+
+%\nopagenumbers
+%\parskip=4pt
+\hspace{1cm} {\bf Math 7670 -- Introduction to Toric Varieties -- Course Information -- Spring 2019}
+
+\bigskip
+\noindent
+    {\bf Professor:}
+    Michael Stillman, 503 Malott, mes15@cornell.edu
+
+\smallskip
+\noindent
+    {\bf Lectures:}
+    Tuesday and Thursdays 10:10 -- 11:25, MT 207
+
+\smallskip
+\noindent
+    {\bf Website:}
+    Piazza webpage: {\tt piazza.com/cornell/spring2019/math7670/home}
+
+    Signup link: {\tt piazza.com/cornell/spring2019/math7670}
+
+    If you do not have a netid, please contact me, and I can give you access to the site.
+    All homework, announcements, notes, etc. will be posted on piazza.
+
+    \medskip
+\noindent
+    {\bf Textbook(s):}
+    Fulton, {\it Introduction to Toric Varieties}, 
+    (optional) Cox, Little, Schenck, {\it Toric Varieties}.
+
+\medskip
+\noindent
+    {\bf Prereqs:}
+A first course in algebraic geometry (e.g. Shafarevich, Vol1,
+or Hartshorne, chapter 1, or Hasset, or Cox-Little-O'Shea).  Some
+knowledge of sheaves, divisors, and schemes, or concurrent enrollment
+in Brian Hwang's algebraic geometry course, math 6670.
+
+
+\medskip
+\noindent
+    {\bf Homework:}
+I will hand out suggested homework problems, (which will NOT
+be handed in), and we will discuss these in class.  Some problems will
+be simple, making sure you understand the concepts, some will be
+computational, and some will be more challenging, to allow you to
+understand the material more deeply.  Finally, some might have you
+explore some of the techniques that we will not have time to cover in
+class.
+
+\medskip
+\noindent
+    {\bf Projects:}
+At the end of the semester, students will present short
+talks on a subject in toric varieties of their interest.  I will have
+lots of possible topics to suggest.
+
+\medskip
+\noindent
+    {\bf Class notes:}
+I will ask class participants to take turns taking notes, and
+latex'ing them.  I will then post them on piazza.
+
+\medskip
+\noindent
+    {\bf Course description:}
+This course will be an introduction to toric varieties, assuming a
+first course in algebraic geometry, and either basic knowledge of
+sheaves, divisors, and schemes, or concurrent enrollment in Brian
+Hwang's math 6670.
+
+Toric varieties are wonderful and explicit examples of affine,
+projective, and even more general varieties.  They provide an
+extremely useful link of algebraic geometry with combinatorics.  Toric
+varieties appear in many places, including in physics.
+
+A tentative list of topics to be covered:
+
+\begin{compactitem}
+\item Polyhedral cones and polytopes.
+\item Affine toric variety corresponding to a cone.
+\item Polyhedral Fans.
+\item Projective toric varieties, non-affine toric variety corresponding to a fan.
+\item The torus action.
+\item Singularities, smoothness, resolution of singularities
+\item Divisors, properties of divisors (nef, big, ample, very ample),
+    cones: nef cone, effective cone.
+\item The homogeneous coordinate ring of a toric variety.
+\item Line bundles
+\item Cohomology (topological, of line bundles, of more general vector bundles)
+\item Intersection theory
+\end{compactitem}
+Throughout, we will see many examples, and we will use the
+NormalToricVarieties, Polyhedra, and FourierMotzkin packages in
+Macaulay2 to explore examples.
+
+A note about the relationship between this course and Brian Hwang's
+course on algebraic geometry: We will coordinate our courses, so that
+after Brian introduces a concept, we will examine that concept in our
+course.  For instance, once he defines a scheme, we will see how to
+glue affine toric varieties to produce more general toric varieties.
+
+\medskip
+\noindent
+{\bf Grading:}
+\noindent
+S/U only. 
+
+
+
+\end{document}
+
+% Local Variables:
+% compile-command: "pdftex blurb.tex && open blurb.pdf"
+% End:
