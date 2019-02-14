@@ -1,0 +1,85 @@
+\documentclass{exam}
+\pagestyle{head}
+\firstpageheader{Math 7670 -- Toric Varieties -- Suggested Problems \# 2 -- Spring 2019}{}{}
+
+\usepackage{amsmath,amsthm,amssymb}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\rr}{\mathbb{R}}
+\newcommand{\cc}{\mathbb{C}}
+\newcommand{\zz}{\mathbb{Z}}
+\newcommand{\ff}{\mathbb{F}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\begin{document}
+
+We will discuss these problems in class on February 21.  This time (as
+opposed to what we did on the first set of suggested problems), I will
+not present any of the solutions.  Participants will!
+
+\begin{questions}
+
+  \question Suppose that $\sigma$ and $\tau$ are polyhedral cones in $\rr^n$.
+  Show that
+  \begin{parts}
+  \part Show that $\sigma^\vee \cap \tau^\vee = (\sigma + \tau)^\vee$.
+  \part Show that $\sigma^\vee + \tau^\vee = (\sigma \cap \tau)^\vee$.
+  \end{parts}
+
+  \question Suppose that $\sigma$ is not pointed.  What is $X_\sigma$ in this case?
+
+  \question Show that if $\sigma$ and $\sigma'$ are cones in $N$, $N'$ (respectively), then
+    there is a natural isomorphism $X_{\sigma \times \sigma'} = X_\sigma \times X_{\sigma'}$.
+  
+  \question Recall that an irreducible affine variety $X$ is called {\bf\it normal} if its
+  coordinate ring $A(X)$ is integrally closed in its fraction field.  Prove that if $\sigma$
+  is a pointed cone in $N$, then the affine toric variety $X_\sigma$ is normal.
+
+  \question Suppose that $S \subset T \subset M = \zz^n$ are sub semigroups.
+  Show that the natural induced map $Spec(\cc[T]) \longrightarrow Spec(\cc[S])$
+  is birational if and only if $S$ and $T$ generate the same subgroup of $M$.
+
+  \question Consider an inclusion of lattices $N \subset N' \subset \rr^n$, of index $\ell$
+  and suppose that $\sigma$ is a pointed rational polyhedral cone in $\rr^n$.
+  \begin{parts}
+    \part Describe the corresponding morphism on toric varieties.
+    \part Is this morphism finite?  If so, what is its degree?
+    \end{parts}
+  
+  \question Suppose that $X = X_\sigma$ is an affine toric variety.  Is the
+  singular locus also an affine toric variety?  Identify the singular locus of $X$.
+  (e.g. in terms of orbits, or in terms of $V(\tau)$'s).  What is the maximum
+  dimension of the singular locus?  In particular, can it be of codimension 1 in $X$?
+
+
+  \question Find the ideal of the affine toric variety corresponding to the cone
+  of $3 \times 3$ magic squares, from the first set of suggested problems.  What is the
+  singular locus of this variety?  What are the ideals of the codimension one
+  subvarieties of the form $V(\tau)$?
+
+  \question Work through (in gory detail) the proof that $X_\Sigma$ is well defined (i.e. that the
+  glueing axioms all hold).  State clearly what lemma's about cones (and rational cones) you need.
+\end{questions}
+
+\end{document}
+
+  \question Let $\Sigma \subset N_\rr = \rr^2$ be a complete fan in the plane, and
+  suppose that the corresponding toric variety is smooth.  Show that there is a fan $\Sigma'$
+  such that (a) $\Sigma'$ has either 3 or 4 rays, and (b) $\Sigma$ is a refinement of $\Sigma'$.
+
+  \question Let $\ff_2$ be the toric variety corresponding to the fan with rays $(1,0)$, $(0,1)$, $(-1,2)$ and $(0,-1)$.
+  Find all of the $T$-invariant subvarieties of $\ff_2$.
+
