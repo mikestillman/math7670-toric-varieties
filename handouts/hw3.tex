@@ -1,0 +1,138 @@
+\documentclass{exam}
+\pagestyle{head}
+\firstpageheader{Math 7670 -- Toric Varieties -- Suggested Problems \# 3 -- Spring 2019}{}{}
+
+\usepackage{amsmath,amsthm,amssymb}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\rr}{\mathbb{R}}
+\newcommand{\cc}{\mathbb{C}}
+\newcommand{\zz}{\mathbb{Z}}
+\newcommand{\ff}{\mathbb{F}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\begin{document}
+
+We will discuss these problems in class on February 28.
+This set of questions involves taking what we have done for polyhedral cones, and obtaining
+similar results for polytopes.
+
+\bigskip
+A {\bf polytope} $P$ in $V = \rr^n$ is the convex hull $P = conv(v_1, \ldots, v_m)$ of a finite number of points: i.e. there are
+points $v_1, \ldots, v_m \in V$, such that
+\[ P = \{ t_1 v_1 + \ldots + t_m v_m \mid t_i \ge 0, \sum_{i=1}^m t_i = 1 \} \subset V. \]
+
+\medskip
+A {\bf polyhedron} $P \subset V = \rr^n$ is the intersection of finitely many affine halfspaces:
+i.e., there exists an $m \times n$ matrix $A$ and a vector $b \in \rr^m$ such that
+  \[ P = \{ x \in V \mid  Ax \le b \} \subset V. \]
+
+\medskip  
+The {\bf cone $C(P)$ over $P$} is the set in $\rr \oplus V = \rr^{n+1}$:
+  \[ C(P) = \{ r \begin{pmatrix}1 \\ x \end{pmatrix} \mid x \in P, r \ge 0 \}. \]
+  We can prove many of the statements below by using our knowledge of cones and the relationship
+  between $P$ and $C(P)$.
+
+  \medskip  
+  An {\bf affine hyperplane} in $V$ is a subset of the form
+  \[ H_{u,b} := \{ x \in V \mid \langle u, x \rangle = b \}, \]
+  where $b \in \rr$ and $u \ne 0 \in V^*$. We denote by
+  \[ H^-_{u,b} := \{ x \in V \mid \langle u, x \rangle \le b \}, \]
+  the negative half space determined by $u$ and $b$.
+  $H_{u,b}$ is a {\bf supporting hyperplane} of a polytope or polyhedron $P$ if
+  (i) $P$ is contained in $H^-_{u,b}$, and
+  (ii) $P \cap H_{u,b} \ne \emptyset$.
+
+\medskip  
+  A (proper) {\bf face} $F \subset P$ is a subset of the form $P \cap H_{u,b}$, where $H_{u,b}$ is a supporting
+  affine hyperplane of $P$.  We also consider the empty set and $P$ itself to be faces of $P$.
+
+  \medskip
+  Suppose that $P \subset V$ is a full dimensional polytope, which contains the origin in its interior.
+  Define the {\bf polar dual} of $P$ to be
+  \[ P^\circ := \{ u \in V^* \mid \langle x, u \rangle \ge -1 \} \subset V^* \]
+  \medskip
+
+  \medskip If $M = \zz^n$ is a lattice in $M_\rr = \rr^n$, then a polytope $P \subset M_\rr$ is called a
+           {\bf lattice polytope} if its vertices lie in $M$.
+           
+  \begin{questions}
+    \question Choose a polytope $P$ in $\rr^2$ or $\rr^3$.  Describe the above notions for your
+    choice of $P$, and use your $P$ to exemplify the results in this problem set.
+    
+    \question Let $P \subset V$ be a subset.  Show that $P$ is a polytope if and only if
+    $P$ is both bounded and a polyhedron.
+
+    \question Show that a face of a polytope $P$ is also a polytope.
+    
+    \question Provide a definition of the dimension of a polytope (and therefore, for the dimension
+    of any face of a polytope $P$).
+    A vertex of $P$ is a face of dimension 0, an edge of $P$ is a face of dimension 1, and a facet
+    is a face of dimension one less than the dimension of $P$.
+    
+    \question Show that every proper face of the polytope $P$ is contained in a facet of $P$.
+
+    \question Show that every proper face of the polytope $P$ is the intersection of the facets of $P$
+    that contain it.
+
+    \question If $P$ is a full dimensional polytope containing the origin in its interior, then
+    \begin{parts}
+      \part $P^\circ$ is also a polytope.
+      \part $P^{\circ\circ} = P$.
+      \part If $F$ is a face of $P$, then
+      \[ F^\circ := \{ u \in P^\circ \mid \langle x, u \rangle = -1, \mbox{for all $x \in F$} \} \]
+      is a face of $P^\circ$ (notice that as a polytope, $F$ doesn't have a polar dual defined, so
+      the notation isn't (too) ambiguous!).
+      \part There is an order reversing bijection between the faces of $P$, and the faces of $P^\circ$
+      given by sending $F$ to $F^\circ$,
+      which satisfies $\dim F + \dim F^\circ = \dim P - 1$, for all faces $F$ of $P$.
+    \end{parts}
+
+    \question There are two ways to construct a fan from a lattice polytope, here is one of them:
+    Let $P \subset N_\rr$ be a full dimensional lattice polytope with the origin in its interior.  Let
+    $\Sigma$ be the set of all cones over faces of $P$.  Show that $\Sigma$ is a fan, and that
+    this fan is complete.
+
+    \question ({\bf Normal fan} of a polytope) Here is perhaps the most important method to obtain a fan from a lattice polytope:
+    Let $P \subset M_\rr$ be a full dimensional lattice polytope.
+    For each face $F \subset P$, define
+    \[ \sigma_F := \{ u \in N_\rr \mid \langle x' - x, u \rangle \le 0, \mbox{ for all $x \in F$ and $x' \in P$} \}
+    \]
+    Let $\Sigma_P$ be the collection of all of the $\sigma_F$, for $F$ a face of $P$.
+
+    \begin{parts}
+      \part Show that $\Sigma_{kP} = \Sigma_P$, for any positive integer $k$.
+      \part Show that if the origin is in the interior of $P$, then $\Sigma_P$ consists
+      of the (negatives of the) cones over faces of $P^\circ$, as in the previous problem.
+      \part Show that $\Sigma_P$ is a fan in $N_\rr$, and that this fan is complete.
+      (There are a couple of ways to see this, but one way is to first note that
+      for $k$ some positive integer, $kP$ can be translated so that the origin is an interior point).
+    \end{parts}
+    
+  \end{questions}
+
+
+
+
+\end{document}
+
+  \question Let $\Sigma \subset N_\rr = \rr^2$ be a complete fan in the plane, and
+  suppose that the corresponding toric variety is smooth.  Show that there is a fan $\Sigma'$
+  such that (a) $\Sigma'$ has either 3 or 4 rays, and (b) $\Sigma$ is a refinement of $\Sigma'$.
+
+  \question Let $\ff_2$ be the toric variety corresponding to the fan with rays $(1,0)$, $(0,1)$, $(-1,2)$ and $(0,-1)$.
+  Find all of the $T$-invariant subvarieties of $\ff_2$.
+

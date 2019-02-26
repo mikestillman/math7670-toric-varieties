@@ -1,4 +1,4 @@
-all: hw2.pdf
+all: hw3.pdf
 
 #all: course-info.pdf hw1.pdf
 
@@ -13,6 +13,10 @@ hw1.pdf: hw1.tex
 hw2.pdf: hw2.tex
 	pdflatex hw2.tex
 	open hw2.pdf
+
+hw3.pdf: hw3.tex
+	pdflatex hw3.tex
+	open hw3.pdf
 
 clean:
 	rm -rf *.aux *.log
