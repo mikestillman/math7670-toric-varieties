@@ -32,6 +32,7 @@
 \newcommand{\C}{\ensuremath{\mathbb{C}}}
 \newcommand{\R}{\ensuremath{\mathbb{R}}}
 \newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\N}{\mathbb{N}}
 \newcommand{\Q}{\ensuremath{\mathbb{Q}}}
 \newcommand{\HH}{\ensuremath{\mathbb{H}}}
 \newcommand{\I}{\ensuremath{\mathds{1}}}
@@ -46,6 +47,8 @@
 \newcommand\bl[1]{{\color{blue}#1}}
 \newcommand{\iif}{\ensuremath{\Leftrightarrow}}
 \newcommand{\mf}{\ensuremath{\mathfrak}}
+\newcommand{\Mat}[1]{\begin{pmatrix}#1\end{pmatrix}} 
+\newcommand{\ip}[1]{\left \langle #1 \right \rangle}
 
 \newcommand\restr[2]{{% we make the whole thing an ordinary symbol
 		\left.\kern-\nulldelimiterspace % automatically resize the bar with \right
@@ -87,12 +90,18 @@
 \newtheorem{Theorem}{Theorem}[section]
 \newtheorem{Corollary}{Corollary}
 \newtheorem*{Conjecture}{Conjecture}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
 
 \theoremstyle{definition}
 \newtheorem*{Problem}{Problem}
 \newtheorem*{Def}{Definition}
 \newtheorem{Eg}{Example}[section]
 \newtheorem*{exercise}{Exercise}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
 
 \theoremstyle{remark}
 \newtheorem*{Remark}{Remark}
@@ -1853,5 +1862,227 @@ If $P \subseteq V = \mathbb{R}^n$ is a set, define the {\bf polar (dual)} $P^{\c
 \end{Corollary}
 
 \noindent {\bf Simple Fact \# 3:} If $P$ is a polytope with $0 \in \text{int}(P)$ then $C(P)^{\vee} = - C(P^{\circ})$.
+
+\newpage
+\section{Lecture from Mar 5 and Mar 7}
+Topics of the Day: \begin{itemize}
+	\item Faces of Polyhedra, $P$
+	\item Fans associated to $P$
+	\item $X_\Sigma$
+	\item Macaulay2 Examples
+\end{itemize}
+
+\subsubsection*{Faces of Polyhedra, P}
+\begin{enumerate}
+	\item Recall: Let $P=\text{conv}(P_1,...,P_r)$ be a lattice polytope in $V=\R^n\supseteq\Z^n.$ We define $C(P)=\text{conv}\Mat{1 & 1 & ... &1\\ P_1& P_2& ... &P_r}\subseteq \R\oplus V=\R^{n+1}$ is a rational polyhedral cone. 
+	\begin{enumerate}
+			\item If $P\subseteq\{x\in V:\ip{x,u}\geq b   \}$ (some u,b) then $F=P\cap \{x\in V:\ip{x,u}= b   \}$ is a face of $P.$ This gives the bijective correspondence \[ \left\{ \text{Faces of }P  \right\} \leftrightarrow \left\{ \text{Faces of }C(P)  \right\} \]
+		\[ F\mapsto C(F)\]
+		Note: $\dim C(F)=\dim F+1.$ 
+		\item Assume $0\in \text{Int}(P)$, then $P^\circ =\{ u\in V^*: \ip{u,x}\geq -1 \forall x\in P   \}$ is a polytope. So we get the correspondence 
+		 \[ \left\{ \text{Faces of }P^\circ  \right\} \leftrightarrow \left\{ \text{Faces of }C(P^\circ)  \right\} \]
+		 \item $C(P)^\vee=-C(P^\circ).$ Putting all of this together, we get 
+		 \begin{remark}
+		 	If $F$ is a face of $P,$ then $F^\circ := \{u\in P^\circ:\ip{u,x}=b, \forall x\in F   \}.$ (If $F=P\cap \{\ip{x,u}=b  \})$ Further, \begin{enumerate}
+		 		\item $F^\circ$ is a face of $P^\circ$ 
+		 		\item $\dim F+\dim F^\circ=.......$
+		 	\end{enumerate}
+	 	For example: Consider the diagram: \[ \begin{tikzcd}
+	 	v\in P^\circ \arrow[d] \arrow[r]& \text{Facet of }P (\dim n-1)\arrow[l] \arrow [d]\\
+	 	C(v)\in C(P^\circ)\arrow[u] \arrow[r] & \text{Facet of } C(P)(\dim n) \arrow[l] \arrow[u]
+	 	\end{tikzcd} \] 
+		 \end{remark}
+	 
+		
+	\end{enumerate}
+
+\end{enumerate}
+\subsubsection*{Construction of Fans from a Polytope}
+\begin{example}
+	Consider the polytope $P$ \[ \begin{tikzcd}
+	\cdot \arrow[r,dash] \arrow[d,dash] & \cdot \arrow[r, dash] & \cdot\arrow[rd,dash]&&\\
+		\cdot \arrow[d,dash] &	\cdot^*  &\cdot   &\cdot  \arrow[rd,dash]&\\
+	\cdot \arrow[r,dash]&\cdot \arrow[r,dash]&\cdot \arrow[r,dash]&\cdot \arrow[r,dash]&\cdot
+	\end{tikzcd}    \]
+	where $\cdot^*=(0,0).$ 
+\end{example}
+\begin{proposition}
+	Let $P$ be a lattice of polytope, with $0\in \text{Int}(P).$ Let $\Sigma=\{ \hat{F}:F\leq P, \text{ a face}   \}$ where $\hat{F}=\{ rx\in V:r\geq 0,x\in F   \},$ then $\Sigma$ is a complete fan. 
+\end{proposition}
+\begin{proof}
+	Suppose $P=\text{conv}\{P_1,...,P_r\}.$ If $F=\text{conv}\{P_i:i\in I\}$ is a face, then $\hat{F}=\text{vcone}\{ P_i:i\in I  \},.$ We need to check the following \begin{itemize}
+		\item $\hat{F}$ is a pointed cone (this requires $0\in \text{Int}(P)).$
+		\item If $F,G$ are faces of $P,$ and therefore $F\cap G$ is a face of both $F$ and $G$ then $\widehat{F\cap G}=\hat{F}\cap \hat{G}$ is a face of $\hat{F}$ and $\hat{G}.$	
+		\item Completeness
+	\end{itemize} 
+The first two are obvious. For completeness, let $x\in \N_\R.$ Consider $rx.$ Since $0\in \text{Int}(P),$ there exists $r>0$ such that $rx\in P.$ Therefore, there exists $r'$ such that $r'x\in F\subseteq P.$ Therefore, $x\in \hat{F}.$ This completes the proof.    
+\end{proof}
+
+\subsubsection*{Normal fan of  Polytope}
+\begin{example}
+	Let $P\subseteq M_\R.$ Consider,  \[ \begin{tikzcd}
+	\text{}& \text{} \arrow[d,red,dash]&\text{} & \text{} &      \\
+	\arrow[r,red,dash] &\cdot \arrow[r,dash] \arrow[d,dash] & \cdot \arrow[rrd, dash] \arrow[ur,red,dash]  \arrow[u,red,dash] & & &\text{}   \\
+	\arrow[r,red,dash]&\cdot^* \arrow[r,dash] \arrow[d,red,dash] &	\cdot &\cdot \arrow[l,dash]   &\cdot  \arrow[l,dash] \arrow[d,red,dash]\arrow[ru,red,dash] &   \\
+&\text{} & & &	\text{}
+	\end{tikzcd}\]
+\end{example}
+\begin{definition}
+	Let $P\subseteq M_\R$ be a full dimensional lattice polytope. For each face $F\leq P,$ define \[\sigma_F=\{ u\in N_\R: \ip{x'-x,u}\leq 0, \forall x\in F, x'\in P  \}   \]
+	Let $\Sigma_P:= \{\sigma_F:F\leq P    \},$ then $\Sigma_P$ is called the normal fan of $P.$ 
+\end{definition}
+\begin{remark}
+	Often $\Sigma_P$ is defined as  $\{-\sigma_F:F\leq P    \}$
+\end{remark}
+\begin{proposition}
+	$\Sigma_P$ is a complete fan in $N_\R.$
+\end{proposition}
+One way to prove this is to consider the following proposition: 
+\begin{proposition}
+	If $P\subseteq M_\R$ contains $0\in \text{Int}(P),$ then $\Sigma_P$ is the fan $\{\hat{F}: F\leq P^\circ   \}.$
+\end{proposition}
+\begin{proof}[Beginning of Proof]
+	If $G$ is a face of $P,$ show that $\sigma_G=\widehat{G^\circ}.$ 
+\end{proof}
+
+\noindent What happens if $0\notin \text{Int}(P)?$\\\\
+Note: $\Sigma_{kP}=\Sigma_P$ ($k\in \Z^+).$ If $v\in M,$ then $\Sigma_{v+kP}=\Sigma_P.$
+For any full dimensional lattice polytope $P$, there exists $v$ and $k$ such that $0\in \text{Int}(v+kP).$ Therefore, $\Sigma_P$ is a complete fan. 
+
+\begin{definition}
+	Let $P\subseteq M_\R$ be a lattice polytope with $0\in \text{Int}(P).$ If $P^\circ$ is a lattice polytope, we call $P$ a reflexive polytope. 
+\end{definition}
+\begin{theorem}
+	Up to equivalence under $SL_n(\Z),$ fix $r=\#$ of interior lattice points, then the set of equivalence classes of all lattice polytopes with exactly $r$ interior lattice points is finite. 
+\end{theorem}
+\begin{corollary}
+	If $P$ is reflexive. Then $0$ is the only interior lattice point. 
+\end{corollary}
+
+\begin{definition}
+	If $P$ is reflexive, $X_{\Sigma_P}=:X_P$ is called Fano. 
+\end{definition}
+
+\subsubsection*{Normal Toric Varieties}
+Some  Important examples of fans $\Sigma$ and its associated toric variety $X_\Sigma.$ Often, let $P\subseteq M_\R$ be a polytope, then $\Sigma_P$ is a normal fan and this gives rise to $X_{\Sigma_P}.$ 
+
+\begin{enumerate}
+
+	\item $P=\text{conv}(0,-e_1,...,-e_n)$ where $M=\textbf{Span}\{e_1^*,e_2^*,...,e_n^*\}$. $P$ is a simplex (i.e. if $n=2$ then $P$ is a 2-simplex). $\Sigma_P=??.$ \\
+	
+	Ways to give a characterization of a fan, $\Sigma$
+	\begin{itemize}
+		\item Give the rays of $\Sigma$ 
+		\item Give the maximal cones as subsets of $\{1,...,r\}.$  
+	\end{itemize}
+	So $\Sigma_P$ for  $n=2$ has rays: \{$e_1,e_2,-e_1-e_2:=e_0\},$ maximal cones: $\{ \{1,2\} , \{0,2\}, \{ 0,1\}\}.$ For general $n$ we have that the rays are $\{e_1,...,e_n, e_0=-\sum e-_i\}$ and the maximal cones are all $\sigma_i=\{ 0,1,...,\hat{i},...,n\}.$ \\
+Now we want to form $X_\Sigma.$ It has $n+1$ open sets and in fact, we can check that $X_\Sigma\cong \mathbb{P}^n.$ 
+
+
+
+\item Fix $a\geq 0,$ an integer and let $P\subseteq \R^2$ be  \[ \begin{tikzcd}
+	\text{}& \text{} \arrow[d,red,dash]&\text{} & \text{} &      \\
+	\arrow[r,red,dash] &\cdot(0,1) \arrow[r,dash] \arrow[d,dash] &(1,1) \cdot \arrow[rrd, dash] \arrow[ur,red,dash]  \arrow[u,red,dash] & & &\text{}   \\
+	\arrow[r,red,dash]&\cdot^*(0,0) \arrow[r,dash] \arrow[d,red,dash] &	\cdot &\cdot \arrow[l,dash]   &\cdot (a+1,0) \arrow[l,dash] \arrow[d,red,dash]\arrow[ru,red,dash] &   \\
+&\text{} & & &	\text{}
+	\end{tikzcd}\]
+	where the bases has $a$ non-origin points. 
+	Then $\Sigma_P$ has rays $\{ (0,1), (-1,0), (0,-1), (1,a)\}.$ 
+\begin{definition}
+	The Hirzebruch surface is $\mathbb{F}_a=X_{\Sigma_P}.$
+\end{definition}   
+The usual characterization of this surface is "flipped," (i.e. reflected across the $y-$axis.)
+We know that \[(\C^*)^2\hookrightarrow \mathbb{F}_a\] as dense open sets. Therefore $\dim \mathbb{F}_a=2.$ All four maximal cones of $\Sigma$ are smooth. Therefore $\mathbb{F}_a$ is a smooth surface. 
+
+
+\item If $\Sigma$ is a fan in $N_\R$  and $\Sigma'$ is a fan in $N'_\R.$ Then $\Sigma\times \Sigma'$ is a cone in $(N\oplus  N')_\R.$ 
+\begin{exercise}
+	Show that $X_{\Sigma\times \Sigma'} =X_\Sigma\times X_{\Sigma'}.$
+\end{exercise} 
+ 	If we know the rays and maximal cones of $\Sigma,\Sigma',$ then what are the rays and maximal cones of $\Sigma\times \Sigma'.$ 
+ 	\begin{itemize}
+ 		\item The rays are $\{ \rho\times 0:\rho\in \Sigma\} \cup   \{ 0\times \rho':\rho'\in \Sigma'\}.$ 
+ 		\item Maximal Cones are $\{\sigma\times \sigma'\}.$     
+ 	\end{itemize}
+ 	
+ 	
+ 	
+\item Let $P\subseteq \R^3$ be the cube with vertices at $\pm e_1^*, \pm e_2^*, \pm 			e_3^*.$ $P$ has \begin{itemize}
+	\item $8$ 0 dimensional  faces
+	\item $12$ 1 dimensional faces
+	\item $6$ two dimensional faces
+	\end{itemize}
+	The polar dual, $P^\circ$ has 
+	\begin{itemize}
+	\item $6$ 0 dimensional  faces
+	\item $12$ 1 dimensional faces
+	\item $8$ two dimensional faces
+	\end{itemize}
+	$P^\circ$ has vertices $\pm e_1,\pm e_2,\pm e_3.$ Therefore, $P^\circ$ is an 					octahedron. $\Sigma_P$ is the face fan of $P^\circ$ with $6-$rays and $8$ maximal 		cones. Further, it is simplicial! So now, what is $X_\Sigma?$
+	
+	Note if $\Sigma_1=\leftarrow \cdot \rightarrow \subseteq \R.$
+	Then \[\Sigma=\Sigma_1^{\times 3}\]
+	Therefore, $X_\Sigma=X_{\Sigma_1}^{\times 3}=\mathbb{P}^{\times 3}$	
+\end{enumerate}
+
+\subsubsection*{Basic Properties/Notions for $X_\Sigma$}
+\begin{enumerate}
+	\item We know $X_\Sigma=\bigcup_{\sigma\in \Sigma_{\max}} U_\sigma$ where $U_\sigma(=X_\sigma)$ is toric. Therefore, $X_\Sigma$ is smooth if and only if $\sigma\in \Sigma_{\max}$ is smooth.  
+	\item $\dim X_\Sigma=n=\text{rank} N$
+	\item Points on $X_\Sigma.$ Recall that $\textbf{Spec}(\C)\to X_\Sigma.$ The set of points of $X_\Sigma$ is the union of the set of points of each $U_\Sigma$.  This is the same as a semigroup map $\sigma^\vee\cap M\to \C$ for any $\sigma\in \Sigma.$
+	This gives us points $P_\tau$ for each $\tau \in \Sigma.$ 
+	\item $T=T_N=(\C^*)^n$ acts on each $U_\sigma.$ $T=U_{\{0\}}\hookrightarrow X_\Sigma$ is open. The action of $T$ on each $U_\sigma$ is compatible, and this gives rise to an action of $T$ on $X_\Sigma.$
+	\item Let $O_T=T\cdot p_\tau\subseteq X_\Sigma$ be the orbit of $T$ containing $P_\tau.$ It is \underline{easy to show }: 
+	\begin{itemize}
+			\item $X_\Sigma=\coprod_{\tau\in \Sigma} O_\tau$
+			\item $O_\tau\cong (\C^*)^{n-\dim \tau}$
+\end{itemize}	 
+	\item  $V(\tau):=\overline{O_\tau}\subseteq X_\Sigma$ is irreducible and closed of dimension $n-\dim \tau.$It is $T-$invariant and in particular, if $\tau\in \Sigma$ is a ray, then $V(\tau)$ is a codim 1, irreducible subvariety (i.e. it is a prime divisor) E.g. On $\mathbb{F}_a,$ we get $4$ irreducible curves on $\mathbb{F}_a.$    
+\end{enumerate}
+\begin{example}
+	$V(\tau)$ on $\mathbb{F}_2.$  
+	
+\[\includegraphics[scale=1]{pic/IMG_0072}\]
+
+	$\Sigma$ has $9$ elements: $0,\tau_i,\sigma_i.$ $\mathbb{F}_2=U_{\sigma_1} \cup ...\ cup U_{\sigma_4}.$ let $\tau=\tau_1.$ What is $V(\tau)?$
+	Consider $V(\tau)\cap U_{\sigma_i}\hookrightarrow U_{\sigma_i}$ is closed. Then \[V(\tau_1)\cap U_{\sigma_1}\hookrightarrow U_{\sigma_1}.\]
+	As $U_{\sigma_1}=\text{Spec} \C[\sigma^\vee\cap M]=\text{Spec} \C[s,t]$
+	we have that $P_{\tau_1}=(0,1).$ Therefore, \[V(\tau_1)\cap U_{\sigma_1}\subseteq \C^2_{st}.\] For $P_{\tau_2}=(1,0)$ and we arrive at the same conclusion as for $\tau_1$ (i.e. $V(\tau_1)\subseteq \C^2_{st}$ )
+	It turns out that $V(\tau_3)\cap U_{\sigma_1}=\varnothing.$ 
+	In face in general, if $\tau\in Sigma$ and $\sigma\in \Sigma$ then \[V(\tau)\cap U_\sigma=\varnothing \iff \tau \not\leq \sigma.\]
+	Further, we have that curves $V(\tau_i).$ This gives the relation \[ V(\sigma_1)=V(\tau_1)\cap V(\tau_2)=P_{\sigma_1}\]
+	Let $C_i:=V(\tau_i).$ So $C_1\cap C_2=P_{\sigma_1}$ \begin{align*}
+		C_2\cap C_3&=P_{\sigma_2}\\
+		C_3\cap C_4&=P_{\sigma_3}\\
+		C_4\cap C_1&=P_{\sigma_4}\\
+		C_1\cap C_3&=\varnothing  \\
+		C_2\cap C_4&=\varnothing \\
+	\end{align*}
+\begin{proposition}
+	$V(\tau)$ is itself a toric variety, for all $\tau\in \Sigma.$ Further, $\dim V(\tau)=n-\dim \tau.$  
+\end{proposition}	
+
+	
+\end{example}
+
+
+\subsection*{Next Steps}
+\begin{itemize}
+	\item Intrinsics: One parameter subgroups of $T:$ $\C^*\to T$ including 
+	 \begin{itemize}
+	 	\item abstract definition of $V(\tau)$ 
+	 	\item embedding of it in $X_\Sigma.$
+	 \end{itemize}
+	 \item Toric Morphisms
+	 \item Use notions of 
+	 \begin{itemize}
+	 	\item "completeness for $X$"
+	 	\item properness for $f:X\to Y.$
+	 	\item Blowups
+\end{itemize}	  
+Look up definitions and their intuitions. 
+\end{itemize}
+
+
 
 \end{document}
