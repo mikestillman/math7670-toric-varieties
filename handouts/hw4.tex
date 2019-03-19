@@ -1,0 +1,105 @@
+\documentclass{exam}
+\pagestyle{head}
+\firstpageheader{Math 7670 -- Toric Varieties -- Suggested Problems \# 4 -- Spring 2019}{}{}
+
+\usepackage{amsmath,amsthm,amssymb}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\rr}{\mathbb{R}}
+\newcommand{\cc}{\mathbb{C}}
+\newcommand{\zz}{\mathbb{Z}}
+\newcommand{\ff}{\mathbb{F}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\begin{document}
+
+We will discuss these problems in class on March 28, the last class
+before Spring Break.
+
+\begin{questions}
+
+  \question Prove the following proposition which is a correction of what was stated in class:
+  Let $\overline{f} : N \to N'$ be a homomorphism of lattices which is
+  compatible with $\Sigma, \Sigma'$.  Let $f : X_\Sigma \to X_{\Sigma'}$ be the
+  corresponding toric morphism.  Suppose that for any cone $\sigma \in \Sigma$,
+  $\sigma' \in \Sigma'$ is the smallest cone in $\Sigma'$ such that $\overline{f}_\rr(\sigma) \subset \sigma'$.
+  Then
+  \begin{parts}
+    \part $f(p_\sigma) = p_{\sigma'}$,
+    \part $f(O_\sigma) \subset O_{\sigma'}$, and
+    \part $f(V(\sigma)) \subset V(\sigma')$.
+    \end{parts}
+
+  \question What conditions on $\overline{f}$, $\Sigma$, $\Sigma'$ imply that the corresponding
+  toric morphism is {\bf surjective}?
+
+  \question What conditions on $\overline{f}$, $\Sigma$, $\Sigma'$ imply that in problem 1(b,c) we get equality, not simply containment?
+
+  \question Suppose that $\tau \in \Sigma$.  Is the natural map $V(\tau) \to X_\Sigma$ a toric morphism?  Either prove this, or
+  give a counter-example.  (I'm not quite sure of the answer!)
+  
+  \question Suppose that $f : X_\Sigma \to X_{\Sigma'}$ is a morphism
+  of varieties.  Let $T, T'$ be the two tori.
+  $f$ is called $(T,T')$ equivariant if for all $t \in T$,
+  and all $x \in X_\Sigma$, then $f(t \cdot x) = t' \cdot f(x)$, where
+  $t' \in T'$ is the corresponding element in $T'$ (see also page 126 in CLS).
+  \begin{parts}
+    \part Show that if $f$ is a toric morphism, then $f$ is $(T, T')$
+    equivariant.
+    \part Show that if $f$ is $(T, T')$ equivariant, then
+    $f$ is a toric morphism.
+    \end{parts}
+  
+  \question Find a resolution of singularities of $X_\sigma$, where
+  \[ \sigma = vcone \begin{pmatrix}0 & 5 \\ 1 & -3 \end{pmatrix}. \]
+  It might also be fun to try the more general case
+  \[ \sigma = vcone \begin{pmatrix}0 & a \\ 1 & -b \end{pmatrix}, \]
+  where $a, b > 0$ are relatively prime.
+
+  \question
+  Consider the polytope $P \subset \rr^3$ which is the convex hull of the
+  6 columns of the matrix
+  \[ A = \begin{pmatrix}
+      1&0&0&{-1}&{-1}&{-1}\\
+      0&1&0&2&{-2}&{-2}\\
+      0&0&1&{-2}&2&0\end{pmatrix}\]
+      Let $\Sigma$ be the normal fan of $P$.  You might want to use Macaulay2
+      or other software for this one!
+      \begin{parts}
+  \part Find the faces of $P$ and of $\Sigma$.
+  \part Find a simplicial subdivision $\Sigma'$ such that $\Sigma(1) = \Sigma'(1)$
+    (i.e. they have the same rays)
+  \part Find a subdivision $\Sigma''$ of $\Sigma'$ such that
+    the corresponding morphisms $X_{\Sigma''} \to X_{\Sigma'}$ and
+    $X_{\Sigma''} \to X_{\Sigma}$ are resolutions of singularities.
+    \part Consider the $T$-invariant divisors $D_i := V(\rho_i) \subset X_{\Sigma'}$, where the
+    $\rho_i$ are the rays of $\Sigma'$.  Which ones intersect?  Does your
+    answer depend on the choice of subdivision $\Sigma'$?
+    \part Which triple intersections $D_i \cap D_j \cap D_k$ are non-empty?
+  \end{parts} 
+\end{questions}
+
+
+
+\end{document}
+
+  \question Let $\Sigma \subset N_\rr = \rr^2$ be a complete fan in the plane, and
+  suppose that the corresponding toric variety is smooth.  Show that there is a fan $\Sigma'$
+  such that (a) $\Sigma'$ has either 3 or 4 rays, and (b) $\Sigma$ is a refinement of $\Sigma'$.
+
+  \question Let $\ff_2$ be the toric variety corresponding to the fan with rays $(1,0)$, $(0,1)$, $(-1,2)$ and $(0,-1)$.
+  Find all of the $T$-invariant subvarieties of $\ff_2$.
+
