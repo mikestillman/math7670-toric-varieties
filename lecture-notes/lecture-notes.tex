@@ -2082,7 +2082,132 @@ We know that \[(\C^*)^2\hookrightarrow \mathbb{F}_a\] as dense open sets. Theref
 \end{itemize}	  
 Look up definitions and their intuitions. 
 \end{itemize}
+\newpage
+\section{Lecture from Mar 12 and Mar 14}
+\noindent Today, we review some (point-set-)topological notions from algebraic geometry. The material today is split into roughly 3 topics: fiber products, separatedness, and completeness/compactness. 
+\\\\
+\textbf{Fiber Products.} 
+\begin{definition}
+In category theory, a \emph{fiber product} is the limit of a diagram consisting of morphisms $f: X \to S$, $g : Y \to S$ with a common codomain $S$. Precisely, the fiber product consists of an object $X \times_S Y$ together with morphisms $p_X: X \times_S Y$, $p_Y : X \times_S Y$ so that 
+1) the following diagram commutes:
+\[\begin{tikzcd}
+X \times_S Y \arrow[d, "p_X"] \arrow[r, "p_Y"] & Y \arrow[d, "g"] \\
+X \arrow[r, "f"]                               & S,             
+\end{tikzcd}\]
+and 2) $(X \times_S Y, p_X, p_Y)$ is universal (terminal) with respect to the diagram.
+\end{definition}
+\begin{example}
+One has $\Spec \C[x,y] = \Spec (\C[x] \otimes_\C \C[y]) = \Spec \C[x] \times_{\Spec \C} \Spec \C[y]$. Thus, in the sense of algebraic geometry, one really has $\C^2 = \C^1 \times_{\Spec \C} \C^1$, as opposed to $\C^2 = \C^1 \times \C^1$ (the first equality is equality in the Zariski sense, while in the second $\C^1 \times \C^1$ is endowed with the classical product topology).
+\end{example}
+\noindent \textbf{Separatedness.} 
+\begin{definition}
+Let $X$ be a topological space. Recall that $X$ is \emph{Hausdorff} if by definition $\exists p_1,p_2 \in X$ and open $U_1,U_2 \subseteq X$ such that $p_i \in U_i$, $U_1 \cap U_2 = \emptyset$.
+\end{definition}
+\begin{proposition}
+    Let $\Delta(X) := \{ (x,x) \in X \times X\}$ denote the \emph{diagonal} of $X$. $X$ is Hausdorff if and only if $\Delta(X)$ is closed in $X \times X$.
+\end{proposition}
+\begin{proof}
+Just go through the motions. It's straightforward point-set topology.
+\end{proof}
+\noindent This motivates the following definition:
+\begin{definition}
+A scheme $X$ over $\C$ is called separated if the image $\Delta$ of the natural map $\delta: X \to X \times_{\Spec \C} X$ is closed.
+\end{definition}
+\begin{example}
+Any affine or projective scheme is separated. The classical nonexample is the line with 2 origins. 
+\end{example}
+\noindent There are 2 key properties of separated schemes. 
+\begin{Proposition}
+    If $X$ is a separated scheme with $U,V$ affine subschemes, then $U \cap V$ is affine. Also, if $f,g: Y \to X$ are morphisms of schemes, with $X$ separated, then $W := \{ y \in Y, \, f(y) = g(y)\}$ is closed in $Y$.
+\end{Proposition}
+\begin{proof}
+Here's a rough sketch. The first statement follows from the observation that $U \cap V$ can be identified with $\Delta_Y \cap (U \times V)$, and the second statement follows from the observation that $W$ can be identified with $(f \times g)^{-1}(\Delta_X) \cap \Delta_Y$.
+\end{proof}
+\noindent Also we have the following ``easy" fact (Prof. Stillman called this a ``proof by intimidation"):
+\begin{proposition}
+    If $X = \cup_{\lambda \in \Lambda} U_\lambda$ is a scheme with each $U_\lambda$ affine (so each $U_\lambda$ is separated), then $X$ is separated if and only if $\forall \alpha \neq \beta$, $U_\alpha \cap U_\beta \hookrightarrow U_\alpha \times U_B$ is closed.
+\end{proposition}
+\begin{proof}
+We didn't prove this in class. It was my intimidation. I suppose it's a good exercise.
+\end{proof}
+\begin{corollary}
+    Projective schemes are separated.
+\end{corollary}
+\begin{Theorem}
+    Let $\Sigma$ be a fan in $N_\R$. Then $X_\Sigma$ is separated.
+\end{Theorem}
+\begin{proof}
+We can write $X_\Sigma = \cup_{\sigma \in \Sigma} U_\sigma$. By our previous proposition, if suffices to check that for all $\alpha, \beta \in \Sigma$, $\alpha \neq \beta$, $U_{\alpha} \cap U_{\beta} \hookrightarrow U_\alpha \times U_\beta$ is closed. For such an $\alpha, \beta$, let $\tau = \alpha \cap \beta$ (so $U_\alpha \cap U_\beta = U_\tau$). Then $U_\alpha \times U_\beta = \Spec \C[\alpha^\vee \cap M] \otimes \C[\beta^\vee \cap M]$, $U_\tau = \Spec \C[\tau^\vee \cap M]$. To ease notation, we set $S_\alpha = \alpha^vee \cap M$. Let $\varphi: \C[S_\alpha] \otimes \C[S_\beta] \to \C[S_\tau]$, $t^m \otimes t^n \mapsto t^{m+n}$. We know that $S_\tau = S_\alpha + S_\beta$, which means $\varphi$ is surjective. Thus, $U_\alpha \cap U_\beta \hookrightarrow U_\alpha \times U_\beta$ is closed, so $X_\Sigma$ is separated.
+\end{proof}
+\noindent \textbf{Completeness and Compactness.}
+Let's recall another general idea from point-set topology:
+\begin{Lemma}
+    Say $X$ is a locally compact Hausdorff space (so for all $x \in X$, there is a neighborhood $N_x$ about $x$ and compact $K \subseteq X$ so that $N_x \subseteq K$). Then $X$ is compact if and only if for all topological spaces $Z$, the projection map $X \times Z \to Z$ takes closed sets to closed sets.
+\end{Lemma}
+\begin{definition}
+A scheme $X$ over $\C$ is called complete (or proper over $\C$) if for all $\C$-schemes $Z$, the projection map $\pi_Z : X \times_{\Spec \C} Z \to Z$ takes (Zariski) closed sets to (Zariski) closed sets.
+\end{definition}
+\begin{example}
+Key examples are closed subschemes of projective space. There are \emph{toric} $X_\Sigma$ which are complete but not projective. A key non-example is $\C$ (for example, let $V(xy - 1) \subseteq \C^2$ and let $p_1: \C^2 \to \C$ denote the projection onto the first coordinate, and note that $p_1(V(xy-1)) = \C \setminus \{0\}$, which is not closed). 
+\end{example}
+\noindent Here's an important fact, which is a consequence of Serre's famous GAGA:
+\begin{theorem}
+    If $X$ is an abstract variety over $\C$, $X$ is complete (in the Zariski sense) if and only if $X$ is compact when endowed with its classical topology.
+\end{theorem}
+\noindent Another important fact:
+\begin{theorem}
+$X_\Sigma$ is complete if and only if $|\Sigma| = N_\R$.
+\end{theorem}
+\noindent Now recall that a morphism $f: X \to Y$ (between locally compact Hausdorff spaces, shortened to LCH) is \emph{universally closed} if for every morphism of LCH's $g: Z \to Y$, $Z \times_Y X \to Z$ is closed. This motivates the following definition:
+\begin{definition}
+A morphism $f: X \to Y$ of Noetherian schemes is \emph{universally closed} if for every morphism of schemes $g: Z \to Y$, the projection map $Z \times_Y X \to Z$ is closed.
+\end{definition}
+\begin{definition}
+A morphism $f: X \to Y$ of schemes is called \emph{proper} if $f$ is separated, of finite type, and universally closed.
+\end{definition}
+\begin{example}
+Any morphism of projective schemes is proper. For example the morphism $\C^n \times \mathbb{P}^m \to \C^n$, $(x,y) \mapsto x$. \emph{Valuative criteria} help to tell when a morphism of schemes if proper, Math 6670 covered/is covering this in detail. 
+\end{example}
+\begin{example}
+Another example is the blow up of a point. Define $B \subseteq \C^n \times \mathbb{P}^{n-1}$ as $B = V \begin{pmatrix} x_1, ..., x_n \\ y_1,...,y_n \end{pmatrix}$. Define $\pi: B \to \C^n$ by $(x,y) \mapsto x$. Note that $\pi^{-1}(0) = 0 \times \mathbb{P}^{n-1}$ and if $x \neq 0$ is in $\C^n$, then $\pi^{-1}(x) = \{x \times x\}$ which is the single point $\{ (x_1,...,x_n) \times (x_1,...,x_n)\}$. Set $E := \pi^{-1}(0) = 0 \times \mathbb{P}^{n-1} \cong \mathbb{P}^{n-1}$ (called the \emph{exceptional torus}). We have a map $B \setminus E \to \C^n \setminus 0$ given by $(x,y) \to x$, which is an isomorphism (note that $\pi$ is birational). This setup allows us to do some calculus on a variety (the idea is to replace a point with the subspace of all directions pointing out of the point, which I think is for example useful in intersection theory). For example if $L_1, L_2$ are lines in $\C^n$ meeting at the origin ($L_1 = \{t v_1 : t \in \C\}, L_2 = \{t v_2 : t \in \C\}$), then we can blow $L_1, L_2$ up to $\widetilde{L_i} := \overline{\pi^{-1}(L_i \setminus 0)} = \{ (tv_i, v_i) : t\in \C\}$, and in the blow-up we now have $\widetilde{L_1} \cap \widetilde{L_2} = \emptyset$. A good picture of this setup can be found here (https://i.pinimg.com/236x/2a/d0/33/2ad0330f6509d0a123c47494fa3b1204--parametric-design-math-education.jpg). 
+\end{example} 
+\noindent This marks the end of the 03/12 lecture. Below are notes for the 03/14 lecture. The main focus of this lecture are toric morphisms. First, we state a (gluing-type) lemma from algebraic geometry:
+\begin{Lemma}
+    Let $X$ be a scheme with open affine cover $\{U_\lambda\}_{\lambda \in \Lambda}$, and say we have a morphism $f_\lambda: U_\lambda \to Y$. Then there is a morphism $f: X \to Y$ such that $f|_{U_\lambda} = f_\lambda$ for all $\lambda \in \Lambda$ if and only if for all $\lambda, \eta \in \Lambda$ nonequal, $f_\lambda |_{U_\lambda \cap U_\eta} = f_\eta |_{U_\lambda \cap U_\eta}$.
+\end{Lemma}
+\begin{definition}
+Say $\bar{f} : N \to N'$ is a $\Z$-module homomorphism, for $N,N'$ lattices. Suppose $\Sigma$ is a fan in $N_\R$ and $\Sigma'$ is a fan in $N'_\R$. We say $\bar{f}$ is \emph{compatible} with $\Sigma, \Sigma'$ if for all $\sigma \in \Sigma$, there exists $\sigma' \in \Sigma'$ such that $\bar{f}_\R(\sigma) \subseteq \sigma'$.
+\end{definition}
+\begin{Remark}
+    If $\Sigma = \text{fan}(\sigma) := \{ \tau: \tau \leq \sigma\}$ and $\Sigma' = \text{fan}(\sigma')$, $f(\sigma) \subseteq \sigma'$, we define $f: X_\sigma \to X_{\sigma'}$ ''locally": there is a correspondence between morphisms $\Spec \C[\sigma^\vee \cap M] \to \Spec \C[\sigma'^{\vee} \cap M']$, morphisms $\C[\sigma'^{\vee} \cap M'] \to  \C[\sigma^\vee \cap M]$, and semigroup maps $\sigma'^{\vee} \cap M' \to \sigma^\vee \cap M$.
+\end{Remark}
+\noindent For instance, say $\bar{f}: N \to N'$ is compatible with $\Sigma, \Sigma'$. Then $\bar{f}$ defines morphisms $f_\sigma: U_\sigma \to U_{\sigma'} \subseteq X_\Sigma$ such that $f_{\sigma_1} |_{U_{\sigma_1} \cap U_{\sigma_2}} = f_{\sigma_2} |_{U_{\sigma_1} \cap U_{\sigma_2}}$ for all $\sigma_1, \sigma_2$ in $\Sigma$. The $f_\sigma$ then glue to give a morphism $f: X_\Sigma \to X_{\Sigma'}$.
+\begin{example}
+We now run through an extended example. Let's recall our old example (the Hizrebruch surface $F_a = X_{\Sigma_P}$; see lecture notes from last week) with $P \subseteq \R^2$ as depicted below:
+\[\begin{tikzcd}
+	\text{}& \text{} \arrow[d,red,dash]&\text{} & \text{} &      \\
+	\arrow[r,red,dash] &\cdot(0,1) \arrow[r,dash] \arrow[d,dash] &(1,1) \cdot \arrow[rrd, dash] \arrow[ur,red,dash]  \arrow[u,red,dash] & & &\text{}   \\
+	\arrow[r,red,dash]&\cdot^*(0,0) \arrow[r,dash] \arrow[d,red,dash] &	\cdot &\cdot \arrow[l,dash]   &\cdot (a+1,0) \arrow[l,dash] \arrow[d,red,dash]\arrow[ru,red,dash] &   \\
+&\text{} & & &	\text{}
+	\end{tikzcd}\]
+	where the bases has $a$ non-origin points. Then $\Sigma_P$ has rays $\{ (0,1), (-1,0), (0,-1), (1,a)\}.$ In $\Sigma_P$, starting at the positive $x$-axis and moving counterclockwise, we label the four rays $\tau_1, \tau_2, \tau_3, \tau_4$ and the regions in between (starting with the positive $xy$ quadrant and going counterclockwise) $\sigma_1, \sigma_2, \sigma_3, \sigma_4$. Note that the map $(x,y) \mapsto x$ on $\Sigma_P$ is compatible, while the map $(x,y) \mapsto y$ on $\Sigma_P$ is not. Let's understand the morphism $\varphi: F_2 \to \mathbb{P}^1$ (this is the compatible map). For the compatible map $(x,y) \mapsto x$, we have the corresponding polytope $P$ as depicted above, where we label the edge $(0,0) - (0,1)$ corresponds to $\tau_1^*$ (from respectively $\sigma_4^*$ to $\sigma_1^*$), the edge $(0,1) - (1,1)$ corresponds to $\tau_2^*$, the edge $(1,1) - (2,0)$ corresponds to $\tau_3^*$ (with endpoint $(2,0)$ labelled with $\sigma_3^*$), and the edge $(2,0) - (0,0)$ corresponds to $\tau_4^*$, and we label the entire region to the left of $\tau_1^*$ as $C_1$, the region on top of $\tau_2^*$ as $C_2$, the region on top of $\tau_3^*$ as $C_3$, and the region below $\tau_4^*$ as $C_4$ (these are the regions formed inside the red lines above); we have $C_i := V(\tau_i^*)$ (in particular, these are curves in $F_2$). We will show $\varphi$ is closed, so that $\varphi$ takes each irreducible curve in $F_2$ to either a point or all of $\mathbb{P}^1$. Thus, we either have that $C_1,C_3$ map to points and $C_2,C_4$ map to all of $\mathbb{P}^1$, or that $C_1,C_3$ map to all of $\mathbb{P}^1$ while $C_2, C_4$ map to points. 
+	\\\\
+	Let's consider the problem locally. Let $U_1 := U_{\sigma_1}$. We have $U_1 = \Spec \C[s,t] = \C^2$, $U_1 \cap V(\tau_1) = V(s), \, U_1 \cap V(\tau_2) = V(t)$, $p_{T_1} = (0,1)$, $p_{T_2} = (1,0)$. The map $f|_{U_1} : \Spec \C[s,t] \to \Spec \C[s]$ given by $(x,y) \mapsto x$ maps $U_1 \cap V(\tau_1) = V(s)$ to the origin in $\C^1$ and $U_1 \cap V(\tau_2) = V(t)$ to all of $\C^1$ (so it is thus surjective). Moreover, we claim $F_2 \mapsto \mathbb{P}^1$, $C_1 \mapsto (0,1)$, $C_2 \mapsto \mathbb{P}^1$, $C_2 \mapsto (1,0)$, $C_4 \mapsto \mathbb{P}^1$, $p_{\sigma_1} \mapsto (0,1)$, $p_{\sigma_2} \mapsto (1,0)$, $p_{\sigma_3} \mapsto (1,0)$, $p_{\sigma_4} \mapsto (0,1)$. A different perspective of $F_2$ can be found by labelling the distinguished points in $P$ above with $1$ at $(0,1)$, $s$ at $(1,1)$, $t$ at $(2,0)$, and then $st, s^2 t$, $s^3t$ while moving along to the left all the way to $(0,0)$.
+	\\\\
+	Consider the map $\rho: \C^2 \to \mathbb{P}^5$ given by $(s,t) \mapsto (1,s,t,s^2t, s^3 t) : = (a,b,c,d,e,f)$. Then $\overline{\rho(\C^2)} = X = V \left(I_2 \begin{pmatrix} a & c & d & e \\ b & d & e & f \end{pmatrix}\right)$, which we will show is $F_2$. We have $C_1 = V(b,d,e,f)$, $C_2 = V(c,d,e,f)$, $C_3 = V(a,c, d, e)$, $C_3 = V(c,d,e,f)$, $C_4 = V \left(a,b, I_2\begin{pmatrix} c & d & e \\ d & 3 &f \end{pmatrix} \right)$. Now algebraically, what is our map $\varphi: F_2 \to \mathbb{P}^1$ given by? Well, it's given by $(a,b,c,d,e,f) \mapsto (b,a) = (d,c) = (e,d) = (f,e)$ (assuming all tuples are nonzero). We thus have $C_1 \mapsto (0,1)$, $C_2 \mapsto\mathbb{P}^1$. Note that $\varphi^{-1}(0)$ is a line $\subseteq \mathbb{P}^5$ (aside: this line can come in a family of such lines, one for each point in $\mathbb{P}^1$, which forms a so-called ``rational normal scroll").
+	\\\\
+	Exercise: Let $\bar{f} : N \to N'$ be compatible with $\Sigma, \Sigma'$. For any $\alpha \in \Sigma$, let $\alpha' \in \Sigma'$ be the smallest element such that $\bar{f}_{\R}(\alpha) \subseteq \alpha'$. Let $f: X_\Sigma \to X_{\Sigma'}$ be the associated map. Then
+	\begin{enumerate}
+	    \item $f(p_\alpha) = p_{\alpha'}$
+	    \item $f(O_{\alpha}) = O_{\alpha'}$
+	    \item $f(V(\alpha)) = V(\alpha')$
+	    \item the induced map $f|_{V(\alpha)} : V(\alpha) \to V(\alpha')$ is a toric morphism.
+	\end{enumerate}
+	\noindent In our example, $C_1 = V(\tau_1) \mapsto V(\alpha_1) = p_{\alpha_1}$, $C_2 = V(\tau_2) \mapsto V(0) = \mathbb{P}^1$, and so on.
+\end{example}
 
-
-
+\begin{Theorem}
+    Let $f: X_\Sigma \to X_{\Sigma'}$ be the toric morphism corresponding to $\bar{f} : N \to N'$ compatible with $\Sigma, \Sigma'$. Then $f$ is proper if and only if $\bar{f}^{-1}|_{\R} (|\Sigma'|) = |\Sigma|$.
+\end{Theorem}
+\noindent The proof of the above can be a good project. Alright, now lets talk about the blow up of $X_\Sigma$ at the distinguished point $p_\sigma$ ($\sigma$ smooth). Let us define $f: B \to X_{\Sigma} \ni p_{\sigma}$ such that $f$ is proper and birational and if $E = f^{-1}(p_\sigma)$ then $f|_{B \setminus E} : B \setminus E \to X_{\Sigma} \setminus p_\sigma$ is an isomorphism. The construction (which is also in the Cox book) is as follows. Write $\sigma = \text{vcone}(u_1,...,u_n) \subseteq N_\R$, $u_0 := u_1 + ... + u_n$, $\Sigma^* (\sigma) := \Sigma \setminus \{\sigma\} \cup \{\sigma_1,...,\sigma_n, \, \text{ and all their faces } \}$, where $\sigma_i = \text{vcone} (u_0, ..., \hat{u_i}, ..., u_n \}$, $1 \leq i \leq n$. Then with $\bar{f}: N \to N$ the the identity map, we have $\bar{f}$ compatible with $\Sigma^*(\sigma), \Sigma$, so we have a map $f: X_{\Sigma^*(\sigma)} = B \to X_{\Sigma}$. What properties does $f$ satisfy? Well, $f$ is birational (because $\bar{f}$ is the identity) and $\bar{f}^{-1}(|\Sigma|) = |\Sigma^*(\sigma)|$ (this also holds for any subdivision $\widetilde{\Sigma}$ of $\Sigma$) so $f$ is proper, and $V(p) \subseteq X_{\Sigma^*(\sigma)} \mapsto v(\sigma) = p_\sigma$. One can check that $V(p) = \mathbb{P}^{n-1}$. This marks the end of the 03/14 lecture.
 \end{document}
