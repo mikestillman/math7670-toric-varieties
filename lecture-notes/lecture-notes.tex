@@ -1,5 +1,6 @@
 \documentclass[a4paper,12pt]{amsart}
 
+\let\amsamp=&
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\CC}{\mathbb{C}}
@@ -69,6 +70,8 @@
 \usepackage{graphicx}
 \usepackage{tikz-cd}
 \usepackage{subcaption}
+\usepackage{mathrsfs}
+\usepackage{tikz}
 
 \makeatletter
 \newcommand\xleftrightarrow[2][]{%
@@ -2210,4 +2213,318 @@ We now run through an extended example. Let's recall our old example (the Hizreb
     Let $f: X_\Sigma \to X_{\Sigma'}$ be the toric morphism corresponding to $\bar{f} : N \to N'$ compatible with $\Sigma, \Sigma'$. Then $f$ is proper if and only if $\bar{f}^{-1}|_{\R} (|\Sigma'|) = |\Sigma|$.
 \end{Theorem}
 \noindent The proof of the above can be a good project. Alright, now lets talk about the blow up of $X_\Sigma$ at the distinguished point $p_\sigma$ ($\sigma$ smooth). Let us define $f: B \to X_{\Sigma} \ni p_{\sigma}$ such that $f$ is proper and birational and if $E = f^{-1}(p_\sigma)$ then $f|_{B \setminus E} : B \setminus E \to X_{\Sigma} \setminus p_\sigma$ is an isomorphism. The construction (which is also in the Cox book) is as follows. Write $\sigma = \text{vcone}(u_1,...,u_n) \subseteq N_\R$, $u_0 := u_1 + ... + u_n$, $\Sigma^* (\sigma) := \Sigma \setminus \{\sigma\} \cup \{\sigma_1,...,\sigma_n, \, \text{ and all their faces } \}$, where $\sigma_i = \text{vcone} (u_0, ..., \hat{u_i}, ..., u_n \}$, $1 \leq i \leq n$. Then with $\bar{f}: N \to N$ the the identity map, we have $\bar{f}$ compatible with $\Sigma^*(\sigma), \Sigma$, so we have a map $f: X_{\Sigma^*(\sigma)} = B \to X_{\Sigma}$. What properties does $f$ satisfy? Well, $f$ is birational (because $\bar{f}$ is the identity) and $\bar{f}^{-1}(|\Sigma|) = |\Sigma^*(\sigma)|$ (this also holds for any subdivision $\widetilde{\Sigma}$ of $\Sigma$) so $f$ is proper, and $V(p) \subseteq X_{\Sigma^*(\sigma)} \mapsto v(\sigma) = p_\sigma$. One can check that $V(p) = \mathbb{P}^{n-1}$. This marks the end of the 03/14 lecture.
+\newpage
+\section{Divisors, Mar 26}
+
+\subsection{Basic Definitions}
+
+Let $X$ be an irreducible variety over $\CC$. Assume $X$ is either smooth or more generally normal.
+
+\begin{definition}
+	A prime divisor $D$ on $X$ is a 1-codimensional irreducible subvariety. And
+	\begin{displaymath}
+	\mathrm{Div}~X:=\{\sum n_iD_i\mid n_i\in\ZZ\text{ and }D_i\text{ prime divisors.}\}
+	\end{displaymath}
+	Elements in $\mathrm{Div}~X$ are called Weil divisors. We say $D$ is effective if $n_i\geq0$ for all $n_i$, denote by $D\geq0$.
+\end{definition}
+
+\begin{example}
+	$X=\CC_{xy}^2=\mathrm{Spec}~\CC[x,y]$, then $D_1:=\mathbb{V}(x)$ and $D_2:=\mathbb{V}(y)$ are prime divisors. More generally, if $f(x)\in\CC[x,y]$ is an irreducible polynomial, then $\mathbb{V}(f)$ is a prime divisor. Here $\CC(X)=\CC(x,y)$, then for any $f(x,y)\in\CC(X)$, we can write $f$ uniquely by
+	\begin{displaymath}
+	f=\frac{f_1^{l_1}\cdots f_r^{l_r}}{g_1^{m_1}\cdots g_1^{m_s}}
+	\end{displaymath}
+	where $f_i,g_j$ are irreducible polynomials and $l_i,m_j>0$. Then the divisors of zeros/poles are
+	\begin{align*}
+	\mathrm{div}_0(f):=\sum_{i=1}^{r}l_i\mathbb{V}(f_i)\\
+	\mathrm{div}_\infty:=\sum_{s=1}^{s}m_j\mathbb{V}(g_i).
+	\end{align*}
+\end{example}
+
+\begin{definition}
+	Let $f\in\CC(X)^*$, we want to define $\mathrm{div}~f$ as
+	\begin{displaymath}
+	\mathrm{div}~f:=\sum_{D~\text{prime divisor on}~X}\mathrm{ord}_D(f)\cdot D.
+	\end{displaymath}
+\end{definition}
+
+\begin{Fact}
+	\begin{enumerate}
+		\item There exists only finitely many $D$ s.t. $\mathrm{ord}_D(f)\neq0$.
+		\item $\mathrm{div}(fg)=\mathrm{div}~f\mathrm{div}~g$.
+	\end{enumerate}
+\end{Fact}
+
+Let $\mathrm{Div}_0~X:=\{\mathrm{div}~f\mid f\in\CC(X)^*\}$, then $\mathrm{Div}_0~X$ is a subgroup.
+
+\begin{definition}
+	Let $D,E\in\mathrm{Div}~X$, then $D\simeq E$ ($D$ linearly equivalent to $E$) if and only if $\exists f\in\CC(X)^*$ s.t. $D-E=\mathrm{div}~f$. The class group $\mathrm{Cl}~X$ is $\mathrm{Div}~X/\mathrm{Div}_0~X$.
+\end{definition}
+
+\begin{example}
+	\begin{enumerate}
+		\item If $X=\CC^2$, then $\mathrm{Cl}~X=0$.
+		\item If $X=\mathbb{CP}^2$, then $\mathrm{Cl}~X=\ZZ$.
+	\end{enumerate}
+\end{example}
+
+There are some facts about D.V.R.'s, one can check them in Atiyah-McDonald, Page 94,95.
+
+\begin{example}
+	Let $K=\CC(x,y)$, define a valuation
+	\begin{displaymath}
+	v\left(\frac{x^l\alpha}{\beta}\right)
+	\end{displaymath}
+	where $\alpha,\beta\in\CC[x,y]$ not divided by $x$. Then $R=\CC[x,y]_{\langle x\rangle}$, the localization at $\langle x\rangle$.
+\end{example}
+
+D.V.R.'s arise naturally from geometry. Let $X$ be a smooth (or normal) variety, and let $D$ be a prime divisor on $X$. Let $K=\CC(X)$ be the field of rational functions. Recall that
+\begin{displaymath}
+\mathscr{O}_{X,D}:=\{f=0~\text{or}~f~\text{is defined on an open}~U\neq0~\text{s.t.}~U\cap D\neq\emptyset\}.
+\end{displaymath}
+This is a local ring. Note that for the $U$, $\mathscr{O}_{X,D}=\mathscr{O}_{U,D\cap U}$.
+
+\begin{Theorem}
+	If $X$ is a smooth/normal variety, then $\mathscr{O}_{X,D}$ is a D.V.R. for all prime divisor $D$ on $X$. We call the valuation $v_D:\CC(X)^*\to\ZZ$.
+\end{Theorem}
+
+\begin{definition}
+	\begin{displaymath}
+	\mathrm{ord}_D(f):=v_D(f).
+	\end{displaymath}
+\end{definition}
+
+\subsection{Divisors on $X_\Sigma$}
+
+Assume $\Sigma(1)$ (rays of $\Sigma$) spans $N_\RR$. If $\Sigma(1)=\{\rho_1,\cdots,\rho_r\}$ is the set of rays of $\Sigma$, then $D_i:=\mathbb{V}(\rho_i)$ are irreducible codimensional 1 subvarieties in $X_\Sigma$. If $\rho\in\Sigma(1)$, let $u_\rho\in N$ be the first lattice point on $\rho$ (after origin), we have
+\begin{displaymath}
+D_1,\cdots,D_r,\rho_1,\cdots,\rho_r,u_1,\cdots,u_\rho.
+\end{displaymath}
+
+\begin{Def}
+	\begin{displaymath}
+	\mathrm{Div}_T(X)=\text{free abelian group generated by all }T\text{-invariant prime divisors}=\bigoplus_{i=1}^r\ZZ\cdot D_i.
+	\end{displaymath}
+\end{Def}
+
+Rational fans on $X_\Sigma$.
+\begin{displaymath}
+\CC(X_\Sigma)=\CC(T)=\CC(t_1,\cdots,t_n)=\text{fraction field of }\CC[t_1,\cdots,t_n]=\mathrm{Frac}~\CC[t_1^{\pm1},\cdots,t_n^{\pm1}].
+\end{displaymath}
+Note: $t^m$ (for $m\in M$) has $\mathrm{div}(t^m)$ to be $T$ invariant.
+
+\begin{proposition}
+	Let $\rho\in\Sigma(1)$, $D=D_\rho=\mathbb{V}(\rho)$ be prime divisor, $u_\rho\in N$. Let $v_\rho:\CC(X_\Sigma)^*\to\ZZ$ be the discrete valuation, then
+	\begin{displaymath}
+	v_\rho(t^m)=\langle m,u_\rho\rangle\in\ZZ.
+	\end{displaymath}
+\end{proposition}
+
+\begin{corollary}
+	\begin{displaymath}
+	\mathrm{div}(t^m)=\sum_{\rho\in\Sigma(1)}\langle m,u_\rho\rangle D_\rho.
+	\end{displaymath}
+\end{corollary}
+
+\begin{proof}[of the proposition]
+	We have $D_\rho\subseteq X_\Sigma$, and we want to compute $\mathrm{ord}_{D_\rho}(t^m)=v_\rho(t^m)$. Note that $D_\rho\cap U_\rho\neq\emptyset$. Choose a basis $e_1=u_\rho,e_2,\cdots,e_n$, then $\rho=\mathrm{vcone}(e_1)$, $u_\rho=\Spec\CC[t_1,t_2^{\pm1},\cdots,t_n^{\pm1}]$ and $D_\rho=\mathbb{V}(\rho)$, $D_\rho\cap U_\rho=\mathbb{V}(t_1)$. Therefore
+	\begin{displaymath}
+	\mathscr{O}_{X_\Sigma,D_\rho}=\mathscr{O}_{U_\sigma,\mathbb{V}(t_1)}=\CC[t_1,t_2^{\pm1},\cdots,t_n^{\pm1}]_{\langle t_1\rangle}=\CC[t_1,t_2,\cdots,t_n]_{\langle t_1\rangle}.
+	\end{displaymath}
+	Then if  $f=t_1^l\frac{g(t_2,\cdots,t_n)}{h(t_2,\cdots,t_n)}$, implying $v_\rho(f)=l$. Hence compute
+	\begin{displaymath}
+	v_\rho(t^m)=v_\rho(t_1^{\langle m,e_1\rangle},\cdots,t_n^{\langle m,e_n\rangle})=\langle m,e_1\rangle=\langle m,u_\rho\rangle.
+	\end{displaymath}
+\end{proof}
+
+\subsection{Compute $\mathrm{Cl}~X_\Sigma$ (28 Mar after the fact)}
+
+\begin{Fact}[Basic facts of $\mathrm{Cl}$ in general]
+	If $R$ is a U.F.D., $X=\Spec~R$, then $\mathrm{Cl}~X=0$. In particular, $\mathrm{Cl}~\CC^n=\mathrm{Cl}~(\CC^*)=0$.
+\end{Fact}
+
+Last time for $m\in M$ on $X_\Sigma$, $\mathrm{div}(t^m)=\sum_{\rho\in\Sigma(1)}\langle m,u_\rho\rangle D_\rho$, $D_\rho\cap U_\rho\neq\emptyset$ if and only if $\rho\in\sigma(1)$, proof really gives with our definition $\mathrm{div}(t^-m)=\mathrm{RHS}$. Ways out:
+\begin{enumerate}
+	\item Change the definition of $\sigma^\vee$.
+	\item $t^m=s^bt^a$.
+	\begin{center}
+		\begin{tikzpicture}
+		\draw[->] (0,2) -- (0,-2);
+		\draw[red,->] (2,0) -- (-2,0);
+		\node [above] at (-2,0) {$s$};
+		\node [right] at (0,-2) {$t$};
+		\end{tikzpicture}
+		\begin{tikzpicture}
+		\draw[->] (0,-2) -- (0,2);
+		\draw[->] (-2,0) -- (2,0);
+		\node [above] at (2,0) {$e_1$};
+		\node [right] at (0,2) {$e_2$};
+		\node at (1.7,1.7) {$M$};
+		\end{tikzpicture}
+	\end{center}
+\end{enumerate}
+
+\begin{proposition}
+	Let $U\subseteq X$ be a non-empty Zariski open subset. Suppose $D_i$'s are the irreducible components of $X-U$ of codimension 1, then
+	\begin{displaymath}
+	\bigoplus_{i=1}^r\ZZ\cdot D_i\to\mathrm{Cl}~X\to\mathrm{Cl}~U\to0,
+	\end{displaymath}
+	mapping $D\in\mathrm{Cl}~X$ to $D|_U\in\mathrm{Cl}~U$.
+\end{proposition}
+
+Now let's compute $\mathrm{Cl}(X_\Sigma)$. For simplicity, assume $\mathrm{span}~\Sigma=N_\RR$.
+
+\begin{Def}
+	\begin{displaymath}
+	\mathrm{Div}_T(X_\Sigma)=\bigoplus_{\rho\in\Sigma(1)}\ZZ\cdot D_\rho.
+	\end{displaymath}
+\end{Def}
+
+Note that $T\subseteq X_\Sigma$ is open, $X_\Sigma-T=\bigcup_{\rho\in\Sigma(1)}D_\rho$ from the proposition,
+\begin{displaymath}
+\mathrm{Div}_T(X_\Sigma)\to\mathrm{Cl}~X_\Sigma\to\mathrm{Cl}~T=0\to0,
+\end{displaymath}
+hence $\{D_\rho\mid\rho\in\Sigma(1)\}$ generates $\mathrm{Cl}~X_\Sigma$.
+
+\begin{theorem}
+	Assume $\mathrm{Span}\{u_\rho\mid\rho\in\Sigma(1)\}=N_\RR$, then there exists a S.E.S.
+	\begin{center}
+		\begin{tikzcd}
+			0\arrow{r}{}&M\arrow{r}{\beta}&\bigoplus_{i=1}^r\ZZ\cdot D_i\arrow{r}{\alpha}&\mathrm{Cl}~X_\Sigma\arrow{r}{}&0\\
+			&&D_\rho\arrow[mapsto]{r}{}&{[}D_\rho{]}&\\
+			&m\arrow[mapsto]{r}{}&\mathrm{div}~t^m&&
+		\end{tikzcd}
+	\end{center}
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item Exactness at $\mathrm{Cl}~X_\Sigma$ is because $\alpha$ is surjective.
+		\item $\mathrm{Im}~\beta\supseteq\mathrm{Ker}~\alpha$ follows from the definition of $\mathrm{Cl}~X_\Sigma$. If $D=\sum a_\rho D\rho\mapsto0$ in $\mathrm{Cl}~X_\Sigma$, then there exists an $f\in\CC(X_\Sigma)^*$ s.t. $D=\mathrm{div}(f)$. $D$ is $T$-invariant implies (by exercise 3.2.4, C.L.S.) that if $f\in\CC(T)^*$ and $f$ has no poles in $T$ then $f=ct^m$ for some $m\in M$. So $D\in\mathrm{Im}~\beta$.
+		\item $\mathrm{Ker}~\beta=0$. If $m$ satisfies $\beta(m)=0$, then $\sum\langle m,u_\rho\rangle D_\rho=0$ in $\mathrm{Div}~X_\Sigma$, then $\langle m,u_\rho\rangle=0$ for all $\rho\in\Sigma(1)$, therefore $m=0$.
+	\end{enumerate}
+\end{proof}
+
+\begin{example}
+	\begin{enumerate}
+		\item We want to prove that $\mathrm{Cl}~\mathbb{P}^2=\ZZ$. More generally, $\mathrm{Cl}~\mathbb{P}^n=\ZZ$. We have
+		\begin{center}
+			\begin{tikzpicture}
+			\draw[->] (0,0) -- (0,2);
+			\draw[->] (0,0) -- (2,0);
+			\draw[->] (0,0) -- (-1.4,-1.4);
+			\node [above] at (2,0) {$e_1=\rho_1$};
+			\node [right] at (0,2) {$e_2=\rho_2$};
+			\node [below left] at (-2,-2) {$-e_1-e_2=\rho_3$};
+			\node at (1.2,1.2) {$\sigma_1$};
+			\node at (-1.2,0.3) {$\sigma_2$};
+			\node at (0.3,-1.2) {$\sigma_3$};
+			\end{tikzpicture}
+		\end{center}
+		\begin{displaymath}
+		0\to\ZZ^2\to\ZZ D_1\oplus\ZZ D_2\oplus\ZZ D_3\to\mathrm{Cl}~\mathbb{P}^2\to0
+		\end{displaymath}
+		where
+		\begin{displaymath}
+		(a,b)\mapsto(a,b,-a-b).
+		\end{displaymath}
+		Hence $\mathrm{Cl}~\mathbb{P}^2=[D_1]=[D_2]=[D_3]$.
+		\item $\mathrm{Cl}~\mathbb{P}^{n_1}\times\cdots\mathrm{Cl}~\mathbb{P}^{n_r}=\ZZ^r$.
+		\item $\mathrm{Cl}~\mathbb{F}_a=\ZZ^2$.
+		\begin{center}
+			\begin{tikzpicture}
+			\draw[->] (0,0) -- (0,2);
+			\draw[->] (0,0) -- (2,0);
+			\draw[->] (0,0) -- (0,-2);
+			\draw[->] (0,0) -- (-0.5,2);
+			\node [above] at (0,2) {$\rho_1$};
+			\node [right] at (2,0) {$\rho_2$};
+			\node [left] at (-0.5,2) {$\rho_3$};
+			\node [below] at (0,-2) {$\rho_4$};
+			\end{tikzpicture}
+		\end{center}
+		\begin{center}
+			\begin{tikzcd}
+				0\arrow{r}{}&\ZZ\arrow{r}{\begin{pmatrix}1\amsamp\\ \amsamp1\\ -1\amsamp a\\ \amsamp-1\end{pmatrix}}&\ZZ^4=\bigoplus_{i=1}^4\ZZ\cdot C_i\arrow{r}{\begin{matrix}c_1-c_3=0\\ c_2+ac_3-c_4=0\end{matrix}}&\mathrm{Cl}~\mathbb{F}_a\arrow{r}{}&0.
+			\end{tikzcd}
+		\end{center}
+		So $\mathrm{Cl}~\mathbb{F}_a=\ZZ[C_1]\oplus\ZZ[C_2]$.
+		\item $\sigma=\mathrm{vcone}\begin{pmatrix}d&\\ -1&1\end{pmatrix}$, then
+		\begin{center}
+			\begin{tikzcd}
+				0\arrow{r}{}&\ZZ^2\arrow{r}{\begin{pmatrix}d\amsamp\\ -1\amsamp1\end{pmatrix}}&\ZZ^2\arrow{r}{}&\mathrm{Cl}~X_\sigma\arrow{r}{}&0.
+			\end{tikzcd}
+		\end{center}
+		So $\mathrm{Cl}~X_\sigma=\ZZ/d\ZZ$.
+	\end{enumerate}
+\end{example}
+
+\subsection{Cartier Divisors}
+Assume $X$ be an irreducible normal scheme.
+
+\begin{Def}
+	A Weil divisor $D$ is called Cartier if it is locally principle, i.e. there exists an open covering $\{U_\alpha\mid\alpha\in\Lambda\}$ s.t. $D|_{U_\alpha}$ is principle, i.e. $D|_{U_\alpha}=\mathrm{div_{U_\alpha}()f_\alpha}$ for some $f_\alpha\in K(X)^*$.
+\end{Def}
+
+\underline{\textbf{Data for a Cartier Divisor:}} $\{(U_\alpha,f_\alpha)\}_{\alpha\in\Lambda}$, $\frac{f_\alpha}{f_\beta}$ has no zeros or poles.
+
+\begin{Def}
+	\begin{displaymath}
+	\mathrm{CDiv}~X:=\{D\in\mathrm{Div}~X\mid D~\text{is Cartier}\}
+	\end{displaymath}
+	is a subgroup of $\mathrm{Div}~X$ and $\mathrm{Div}_0~X\subseteq\mathrm{CDiv}~X$. Define the Picard group by
+	\begin{displaymath}
+	\mathrm{Pic}~X:=\mathrm{CDiv}~X/\mathrm{Div}_0~X.
+	\end{displaymath}
+\end{Def}
+
+Note that for $D,E\in\mathrm{Div}~X$, $D\sim E$ then $D\in\mathrm{CDiv}~X$ if and only if $E\in\mathrm{CDiv}~X$.
+
+\begin{example}
+	\begin{displaymath}
+	D=\mathbb{V}\left(I_2\begin{pmatrix}a&b&c\\ b&c&d\end{pmatrix}\right)\subseteq Q=\mathbb{V}(ad-bc)=\mathbb{V}(ad-bc,b^2-ac,c^2-bd)\subseteq\mathbb{P}^3.
+	\end{displaymath}
+	If $d\neq0$, is $D$ generated by 1 element locally? On $U_d$, $d=1,c^2-b=0$, $b^2-ac=0$. $Q\cap U_d=|_{a-bc=0}$ (here I lost my writing in my notes). On $D\cap U_d$, $0=b^2-ac=b^2-b^2c$ implying that $b-bc=0$. Similarly, on other open sets $D$ is Cartier.
+\end{example}
+
+\begin{theorem}
+	If $X$ is a smooth variety, then every Weil divisor is Cartier.
+\end{theorem}
+
+Then \textbf{what about $\mathrm{CDiv}~X$ and $\mathrm{Pic}~X$}? Assume $\Sigma(1)$ generates $N_\RR$, then
+\begin{displaymath}
+0\to M\to \mathrm{CDiv}_T~X_\Sigma\to\mathrm{Pic}~X_\Sigma\to0.
+\end{displaymath}
+Thus the real problem is what is $\mathrm{CDiv}_T~X_\Sigma$.
+
+\begin{proposition}
+	Let $D\in\mathrm{CDiv}_T~X_\Sigma=\sum_{\rho\in\Sigma(1)}a_\rho D_\rho$, then $\forall\sigma\in\Sigma_{\mathrm{max}}$, $\exists m_\sigma\in M$ s.t. $D|_{u}=\mathrm{div}(t^{m_\sigma})|_{u_\sigma}=\sum_{\rho\in\Sigma(1)}\langle m_\sigma,u_\sigma\rangle D_\rho|_{u_\rho}$.
+\end{proposition}
+
+\begin{proposition}
+	Suppose $\sigma$ be a pointed cone in $N_\RR$, and that $D$ is a Cartier divisor on $U_\sigma$ and $T$-invariant. then
+	\begin{enumerate}
+		\item There exists $m\in M$ s.t. $D=\mathrm{div}~t^m$.
+		\item If $\dim~\sigma=n$, $m$ is unique.
+		\item $\mathrm{Pic}~U_\sigma=0$.
+	\end{enumerate}
+\end{proposition}
+\begin{proof}["Proof"]
+	(1) Is just the last proposition.\par
+	(2) $u_\rho$'s $\geq n$ of these $\langle m,u_\rho\rangle=a_\rho$ span $N_\RR$ solutions.
+\end{proof}
+
+\begin{proposition}
+	Suppose $\Sigma$ contains a cone of maximal $\dim=n$, then $\mathrm{Pic}~X_\Sigma=\ZZ^n$. 
+\end{proposition}
+\begin{proof}
+	Exercise.
+\end{proof}
+
+\begin{theorem}
+	Let $X_\Sigma$ be a toric variety, then TFAE:
+	\begin{enumerate}
+		\item Every Weil divisor is Cartier.
+		\item $X_\Sigma$ is smooth.
+		\item $\mathrm{Pic}~X_\Sigma=\mathrm{Cl}~X_\Sigma$.
+	\end{enumerate}
+\end{theorem}
 \end{document}
