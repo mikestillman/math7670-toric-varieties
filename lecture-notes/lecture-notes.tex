@@ -5,6 +5,7 @@
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\PP}{\mathbb{P}}
+\newcommand{\FF}{\mathbb{F}}
 \newcommand{\bfx}{\mathbf{x}}
 \newcommand{\bfy}{\mathbf{y}}
 \newcommand{\bfb}{\mathbf{b}}
@@ -50,6 +51,12 @@
 \newcommand{\mf}{\ensuremath{\mathfrak}}
 \newcommand{\Mat}[1]{\begin{pmatrix}#1\end{pmatrix}} 
 \newcommand{\ip}[1]{\left \langle #1 \right \rangle}
+\newcommand{\divof}[1]{\mathrm{div}(#1)}
+\newcommand{\CDiv}{\mathrm{CDiv}}
+\newcommand{\Picard}{\mathrm{Pic}~}
+\newcommand{\Cl}{\mathrm{Cl}~}
+\newcommand{\Divisor}{\mathrm{Div}~}
+\newcommand{\SplineF}[1]{\mathrm{SF}(#1)}
 
 \newcommand\restr[2]{{% we make the whole thing an ordinary symbol
 		\left.\kern-\nulldelimiterspace % automatically resize the bar with \right
@@ -61,6 +68,7 @@
 \DeclareMathOperator{\Inn}{Inn}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Spec}{Spec}
+
 
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{amsmath, amssymb}
@@ -112,8 +120,9 @@
 \newtheorem*{Fact}{Fact}
 \newtheorem*{Note}{Note}
 
+\tableofcontents
 %---This is the beginning of the document---
-
+\newpage
 \section{Lecture 01}
 
 What is a toric variety(over $\CC$)? simplest: $\PP^n$, also $\PP^{n_1}\times\PP^{n_2}\times\dots\times\PP^{n_r}$(via Segre embdedding).
@@ -2213,6 +2222,319 @@ We now run through an extended example. Let's recall our old example (the Hizreb
     Let $f: X_\Sigma \to X_{\Sigma'}$ be the toric morphism corresponding to $\bar{f} : N \to N'$ compatible with $\Sigma, \Sigma'$. Then $f$ is proper if and only if $\bar{f}^{-1}|_{\R} (|\Sigma'|) = |\Sigma|$.
 \end{Theorem}
 \noindent The proof of the above can be a good project. Alright, now lets talk about the blow up of $X_\Sigma$ at the distinguished point $p_\sigma$ ($\sigma$ smooth). Let us define $f: B \to X_{\Sigma} \ni p_{\sigma}$ such that $f$ is proper and birational and if $E = f^{-1}(p_\sigma)$ then $f|_{B \setminus E} : B \setminus E \to X_{\Sigma} \setminus p_\sigma$ is an isomorphism. The construction (which is also in the Cox book) is as follows. Write $\sigma = \text{vcone}(u_1,...,u_n) \subseteq N_\R$, $u_0 := u_1 + ... + u_n$, $\Sigma^* (\sigma) := \Sigma \setminus \{\sigma\} \cup \{\sigma_1,...,\sigma_n, \, \text{ and all their faces } \}$, where $\sigma_i = \text{vcone} (u_0, ..., \hat{u_i}, ..., u_n \}$, $1 \leq i \leq n$. Then with $\bar{f}: N \to N$ the the identity map, we have $\bar{f}$ compatible with $\Sigma^*(\sigma), \Sigma$, so we have a map $f: X_{\Sigma^*(\sigma)} = B \to X_{\Sigma}$. What properties does $f$ satisfy? Well, $f$ is birational (because $\bar{f}$ is the identity) and $\bar{f}^{-1}(|\Sigma|) = |\Sigma^*(\sigma)|$ (this also holds for any subdivision $\widetilde{\Sigma}$ of $\Sigma$) so $f$ is proper, and $V(p) \subseteq X_{\Sigma^*(\sigma)} \mapsto v(\sigma) = p_\sigma$. One can check that $V(p) = \mathbb{P}^{n-1}$. This marks the end of the 03/14 lecture.
+
+\newpage
+\section{Lecture from Mar 19}
+
+\begin{definition}
+	A \textit{resolution of singularities} of a variety $X$ is a morpihsm $\pi:\tilde{X}\rightarrow X$ such that:
+	\begin{enumerate}[(a)]
+		\item $\tilde{X}$ is smooth.
+		\item $\pi$ is proper.
+		\item $\pi$ is birational.
+		\item $\pi:\tilde{X}\setminus\pi^{-1}(X_\text{sing})\rightarrow X\setminus X_\text{sing}$ is an isomorphism.
+	\end{enumerate}
+\end{definition}
+
+\begin{example}
+	Let $v_1,\cdots,v_4\in\ZZ^3$ be such that they generate $\ZZ^3$ and satisfy the relation $v_1+v_3=v_2+v_4$. Let $\sigma=\text{vcone}(v_1,\cdots,v_4)$, $X_\sigma=\text{spec}\CC[\sigma^\vee\cap M]=\CC[x_1,\cdots,x_4]/(x_1x_3-x_2x_4)$. Note that $X_\sigma$ is singular at the origin, and that it is the only singular point.
+\end{example}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{pic/Mar19_fan0}
+\end{figure}
+
+We now want to find a subdivision $\Sigma$ of $\sigma$ such that $X_{\Sigma}\rightarrow X_\sigma$ is a resolution of singularities. We have the following options for doing so.
+\begin{enumerate}
+	\item  Add in the ray $v_0=v_1+v_3=v_2+v_4$, so that the fan $\Sigma_0$ has 5 rays $v_0,\cdots,v_4$ with maximal cones $(0,1,2),(0,2,3),(0,3,4),(0,1,4)$.
+	Note that each of these cones is smooth. $X_{\Sigma_0}\rightarrow X_\sigma$ is birational and proper, and also $X_{\Sigma_0}\setminus\pi^{-1}(0)\rightarrow X_\sigma\setminus0$ is an isomorphism.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{pic/Mar19_fan1}
+	\end{figure}
+	
+	\item Don't add a new ray. Instead, subdivide the maximal cone into a fan $\Sigma_1$ with maximal cones $(1,2,4),(2,3,4)$. Again, $X_{\Sigma_1}$ is smooth and $X_{\Sigma_1}\rightarrow X_\sigma$ is a resolution of singularities.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{pic/Mar19_fan2}
+	\end{figure}
+	\vspace{3cm}
+	
+	\item Divide the cone in the oposite way into a fan $\Sigma_2$ with maximal cones $(1,2,3),(1,3,4)$. Again, $X_{\Sigma_2}\rightarrow X_\sigma$ is a resolution of singularities.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{pic/Mar19_fan3}
+	\end{figure}
+\end{enumerate}
+
+Note that since $\Sigma_0$ is a subdivision of both $\Sigma_1$ and $\Sigma_2$ then we have the following diagram.
+$$\begin{tikzcd}
+& X_{\Sigma_0} \arrow[dl] \arrow[dr]& \\
+X_{\Sigma_1} \arrow[rr, dashed,"\text{flop}"] \arrow[dr]  &                           & X_{\Sigma_2} \arrow[dl]\\
+&X_\sigma&             
+\end{tikzcd}$$
+In particular, this illustrates that ``minimal'' resolutions of singularities are not (always) unique.
+
+We now move one to study the intrinsics of toric varieties, focusing on one-parameter subgroups. Given $N,M$ such that $N=\Hom_\ZZ(M,\ZZ)$ and$M=\Hom_\ZZ(N,\ZZ)$, we have a pairing $M\otimes N\rightarrow$. If we choose a basis, then this is simply the dot product $(m,n)\mapsto\langle m,n\rangle$, which we can also think of as $n(m)$ or $m(n)$. 
+
+The torus $T_N=\Hom_\ZZ(M,\CC^*)=\Spec\CC[M]=N\otimes_\ZZ \CC^*$ is an affine algebraic group. This means that:
+\begin{enumerate}[(a)]
+	\item It is a group.
+	\item It is an affine variety.
+	\item Multiplicaion and inverse maps are morphisms of varieties.
+\end{enumerate}
+
+\begin{definition}
+	Let $G,H$ be algebraic groups. Then:
+	\begin{enumerate}[(1)]
+		\item $f:G\rightarrow H$ is a \textit{homomorphism of algebraic groups} $(f\in\Hom_\text{a.g}(G,H))$ if
+		\begin{enumerate}[(a)]
+			\item $f$ is a morphism (regular map).
+			\item $f$ is a homomorphism.
+		\end{enumerate}
+		\item A \textit{one-parameter subgroup of $T_N$} is a map $f:\CC^*\rightarrow T_N$ which is a homomorphism of algebraic groups $(f\in\Hom_\text{a.g.}(\CC^*,T_N))$.
+		\item A \textit{character of $T_N$} is a map $f:T_N\rightarrow \CC^*$ which is a homomorphism of algebraic groups $(f\in\Hom_\text{a.g.}(T_N,\CC^*))$.
+	\end{enumerate}
+\end{definition}
+
+\begin{example}
+	Let $f:\CC^*\rightarrow\CC^*$ be a homomorphism of algebraic groups. Note that $f(z)$ must be a polynomial in $z$ and $z^{-1}$, and that it must satisfy $f(z_1z_2)=f(z_1)f(z_2)$. The only possibility for this is that $f(z)=z^k$ for some $k\in\ZZ$.
+\end{example}
+
+We can now ask the question, what are the one-parameter subgroups of $T_N$, i.e. $\Hom_\text{a.g.}(\CC^*,T_N)$? We know that if we choose coordinates then $T_N=(\CC^*)^n$. Given $u:=(u_1,\cdots,u_n)\in\ZZ^n$, by the above reasoning we know that the one-parameter subgroups will be
+\begin{align*}
+\lambda^u:\CC^*&\rightarrow(\CC^*)^n\\
+z&\mapsto(z^{-u_1},\cdots,z^{-u_n})=:z^{-u},
+\end{align*}
+where the minus sign is due to the sign convention that we are using in this class. Now, going back to the intrinsics, we can ask: what is $\Hom_{a.g}(\CC^*,T_N)$ (without choosing coordinates)? Is it $M$ or $N$? Going back through the definitions carefully one finds that $N\simeq\Hom_\text{a.g.}(\CC^*,T_N)$. So for $u\in N$, the one-parameter subgroup is
+\begin{align*}
+\lambda^u:\CC^*&\rightarrow T_N=\Hom_\ZZ(M,\CC^*)\\
+z&\mapsto\lambda^u(z)(m)=z^{-\langle u,m\rangle}
+\end{align*}
+
+We  finalize this discussion by talking about limit points of varieties. Suppose that $X_\sigma=\Spec\CC[\sigma^\vee\cap M]$, and $u\in N$ so that we have $\lambda^u:\CC^*\rightarrow T_N\subseteq X_\sigma$. We can ask: does the limit $\lim_{z\rightarrow0}\lambda^u(z)$ exist? If so, what point of $X_\sigma$ is that limit? (Note that $X_\sigma$ is an affine variety and so it has a classical topology. The limit is with respect to this notion.)
+
+For any $m\in M$, ($m\in\sigma^\vee\cap M$)
+$$\lim_{z\rightarrow 0}\lambda^u(z)(m)=\lim_{z\rightarrow0}z^{-\langle u,m\rangle}=\begin{cases}
+1&\text{if }\langle u,m\rangle=0\\
+0&\text{if }\langle u,m\rangle<0\\
+\text{doesn't exist}&\text{if }\langle u,m\rangle>0
+\end{cases}$$
+
+\begin{proposition}
+	Let $u\in N$. The limit $\lim_{z\rightarrow0}\lambda^u(z)$ exists if and only if $u\in\sigma=(\sigma^\vee)^\vee$ and if $\tau\leq \sigma$ is a face of $\sigma$ such that $u\in\text{relint}(\tau)$. In such case $\lim_{z\rightarrow0}\lambda^u(z)=p_\tau$.
+\end{proposition}
+
+This allows us to reconstruct $\Sigma$ from $T_\Sigma\supseteq T_N$ and its toruc action in the following way.
+\begin{enumerate}[(1)]
+	\item If $u\in|\Sigma|$, and $\tau$ is the cone in $\Sigma$ such that $u\in\text{relint}(\tau)$, then $\lim_{z\rightarrow0}\lambda^u(z)=p_\tau$.
+	\item If $u\not\in|\Sigma|$, then $\lim_{z\rightarrow0}\lambda^u(z)$ does not exist.
+\end{enumerate}
+
+\newpage
+\section{Lecture from Mar 21}
+
+In this lecture we will show that $V(\tau)$ is a toric variety and construct its fan. We will also classify smooth compact toric surfaces.
+
+Let $\Sigma$ be a fan and $X=X_\Sigma$ its toric variety. Let $\tau\in\Sigma$ with $\dim\tau=k$. We have seen how to construct $V(\tau)$ and that $\dim V(\tau)=n-k$. We start by recalling the following notions:
+\begin{itemize}
+	\item $N_\tau$ is the lattice generated by $\tau\cap N$ (as a $\ZZ$-module).
+	\item $N(\tau):=N/N_\tau\simeq\ZZ^{n-k}$ is a lattice.
+	\item $M(\tau):=\tau^\perp\cap M$.
+	\item The torus is $\OO_\tau:=T_{N(\tau)}=\Hom_\ZZ(M(\tau),\CC^*)=\Spec\CC[M(\tau)]=N(\tau)\otimes_\ZZ\CC^*$ and has dimension $n-k$.
+\end{itemize}
+
+\begin{example}
+	Let's consider the following fan.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.3\textwidth]{pic/Mar21_fan0}
+	\end{figure}
+	
+	We have seen before that
+	$$V(\tau)\cap U_\sigma=\begin{cases}
+	=\emptyset&\text{if }\tau\text{ not a face of }\sigma\\
+	\not=\emptyset &\text{if }\tau\leq\sigma
+	\end{cases},$$
+	where $\sigma$ is a maximal cone in the fan. Hence, the fan of $V(\tau)$ should only involve $\sigma\in\Sigma$ such that $\tau\leq\sigma$. This leads us to the definition of the star of $\tau$ as the set of $\sigma\in\Sigma$ such that $\tau\leq\sigma$. We use $\bar{\sigma}$ to denote the image of the cone $\sigma$ in $N(\tau)_\RR$. Note that $\bar{\tau}=0$.
+\end{example}
+
+\begin{definition}
+	The \textit{star of $\tau$} is a fan in $N(\tau)$ defined by
+	$$\text{star}(\tau):=\{\sigma\in\Sigma|\tau\leq\sigma\}.$$
+\end{definition}
+
+\begin{example}
+	Let $\Sigma$ be the fan whose max cones are the 8 orthants in $\RR^3$ (8 maximal cones and 6 rays). Let $\tau$ be the positive $z$ axis.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.35\textwidth]{pic/Mar21_fan1}
+	\end{figure}
+	
+	What is $\text{star}(\tau)$? We start by noting that $N(\tau):=N/N_\tau\simeq\ZZ^2$. We knowthat we should have $V(\tau)=X_{\text{star}(\tau)}$ be a toric variety of dimension $n-\dim\tau=2$. Note that the torus $T_{N(\tau)}=(\CC^*)^{n-k}\subseteq X_{\text{star}(\tau)}$ is a dense open set that will be identified with $T_N\cdot p_\tau=\OO_\tau$. 
+	
+	By definition we have
+	$$X_{\text{star}(\tau)}=\bigcup_{\sigma\in\Sigma,\sigma\geq\tau}U_\sigma(\tau),$$
+	where $U_\sigma(\tau)=\Spec\CC[\bar{\sigma}\cap M(\tau)]=\Spec\CC[\sigma^\vee\cap\tau^\perp\cap M]$. In particular, $U_\tau(\tau)=\Spec\CC[\tau^\vee\cap\tau\perp\cap M]=\Spec\CC[\tau^\perp\cap M]=(\CC^*)^{n-k}$. This fan would be the following.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.3\textwidth]{pic/Mar21_fan2}
+	\end{figure}
+	
+	Locally, we would want an embedding
+	\begin{align*}
+	U_\sigma(\tau)&\rightarrow U_\sigma\\
+	\shortparallel\ \ \ &\quad\ \ \shortparallel\\
+	\Spec\CC[\sigma^\vee\cap\tau^\perp\cap M]&\rightarrow\Spec\CC[\sigma^\vee\cap M]
+	\end{align*}
+	which as a $\CC$-algebra homomorphism would be
+	\begin{align*}
+	\CC[\sigma^\vee\cap M]&\rightarrow\CC[\sigma^\vee\cap\tau^\perp\cap M]\\
+	t^m&\mapsto\begin{cases}
+	0&\text{if }m\not\in\tau^\perp\\
+	t^m&\text{if }m\in\tau^\perp
+	\end{cases}
+	\end{align*}
+	Note that $\sigma^\vee\cap\tau^\perp$ is a face of $\sigma^\vee$. Thus, if $m_1+m_2\in\sigma^\vee\cap\tau^\perp\cap M$ and $m_1,m_2\in\sigma^\vee\cap M$, then $m_1,m_2\in\sigma^\vee\cap\tau^\perp\cap M$. This means that the map above is well defined and is surjective, so $U_\sigma(\tau)\hookrightarrow U_\sigma$ is a closed embedding.
+\end{example}
+
+It is easy to check toat all of these maps (for $\tau\leq\sigma\leq\sigma'$) are compatible.
+$$\begin{tikzcd}
+U_\sigma(\tau) \arrow[hookrightarrow]{r} \arrow[hookrightarrow]{d} & U_{\sigma'}(\tau) \arrow[hookrightarrow]{d}\\
+U_\sigma \arrow[hookrightarrow]{r} & U_{\sigma'}
+\end{tikzcd}$$
+This diagram commutes, which implies that $X_{\text{star}(\tau)}\rightarrow X_\Sigma$ is a well-defined morphism. Thus, we conclude that $V(\tau)$ is indeed a toric variety, and that its corresponding fan is $\text{star}(\tau)$.
+
+Now, let's consider the case when $\Sigma=\Sigma_P$, where $P$ is a polytope in $M_\RR$. For example, let's consider the following polytope.
+
+$$ \begin{tikzcd}
+\text{}& \text{} \arrow[d,red,dash,"\rho"]&\text{} & \text{} &      \\
+\arrow[r,red,dash] &\cdot \arrow[r,dash,"\rho^*"] \arrow[d,dash] & \cdot \arrow[rrd, dash] \arrow[ur,red,dash]  \arrow[u,red,dash,"\rho"] & & &\text{}   \\
+\arrow[r,red,dash]&\cdot \arrow[r,dash] \arrow[d,red,dash] &	\cdot &\cdot \arrow[l,dash]   &\cdot  \arrow[l,dash] \arrow[d,red,dash]\arrow[ru,red,dash] &   \\
+&\text{} & & &	\text{}
+\end{tikzcd}$$
+
+We will consider the ray of the fan $\rho$ denoted above, and find the variety $V(\rho)$. We denote the facet corresponding to this ray by $\rho^*$. The normal fan is the following.
+
+And $\text{star}(\rho)$ is the following.
+
+Note that this is the normal fan of $\rho^*$, which is also a polytope. So the toric variety $V(\rho)$ corresponds to the polytope $\rho^*$.
+
+In general, let $Q\leq P$ be the face corresponding to a cone $\tau\in\Sigma=\Sigma_P$. $Q$ is a lattice polytope in its affine span $Q\subseteq\text{span} Q$. Then $X_{\Sigma_Q}=V(\tau)\subseteq X_\Sigma$.
+
+\begin{example}
+	Suppose that $P$ is the octahedron in $M_\RR=\RR^3$. Let $Q$ be one of the faces. Then, after a suitable change of coordinates, $Q$ is the standard simplex in $\RR^2$, which means that $X_{\Sigma_Q}\simeq\PP^2$.
+\end{example}
+
+\noindent\textbf{Smooth Toric Surfaces}
+
+Let us not classify all the compact smooth toric surfaces by analyzing what kind of fans we can have. By a change of basis we can have a cone of the fan being the first quadrant. We also label the rays counterclockwise so that the fan looks as follows.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.3\textwidth]{pic/Mar21_fan3}
+\end{figure}
+
+Since we are interested in compact smooth surfaces we know that:
+\begin{enumerate}[(a)]
+	\item $v_i,v_{i+1}$ generate $\ZZ^2$ for all $i$. In fact, $\det[v_i v_{i+1}]=1$, and it is never negative due to the ordering that we chose.
+	\item For each triplet $v_{i-1},v_i,v_{i+1}$ there exist $\alpha,\beta\gamma\in\ZZ$ such that $\alpha v_{i-1}+\beta v_i+\gamma v_{i+1}=0$, and we can pick them so that $\alpha,\beta,\gamma$ are relatively prime. Since $v_{i+1}\in\ZZ\langle v_{i-1},v_i\rangle$ then $\gamma=\pm 1$, and similarly, $\alpha=\pm 1$. We can choose $\alpha,\gamma=+1$, and thus we can write $v_{i-1}+v_{i+1}=a_i v_i$, for $a_i\in\ZZ$.
+\end{enumerate}
+
+\begin{example}
+	Let's first consider the case when we have 3 rays, and $\Sigma$ is smooth. It can be checked that the only possibility is the following.
+	\vspace{5cm}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.3\textwidth]{pic/Mar21_fan4}
+	\end{figure}
+	
+	This means that $X_\Sigma=\PP^2$. In this case we have
+	\begin{align*}
+	v_0+v_2=-v_1,\qquad v_1+v_2=-v_0,\qquad v_0+v_1=-v_2
+	\end{align*}
+	So $a_0=a_1=a_2=-1$.
+\end{example}
+
+
+\begin{exercise}
+	If $\Sigma$ has 4 rays, then up to a change of basis the only possibilities are the following.
+	\begin{enumerate}[(1)]
+		\item $X_\Sigma=\PP^1\times\PP^1$
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.3\textwidth]{pic/Mar21_fan5}
+		\end{figure}
+		
+		\item $X_\Sigma=\mathbb{F}_a$ ($a\geq 2$)
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.3\textwidth]{pic/Mar21_fan6}
+		\end{figure}
+		\item $X_\Sigma=\text{Bl}_p\PP^2$, where $p$ is one of the distinguished points.
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.3\textwidth]{pic/Mar21_fan7}
+		\end{figure}
+	\end{enumerate}
+\end{exercise}
+\vspace{5cm}
+
+The $a_i$ are given by
+\begin{center}
+	\begin{tabular}{c|c c} 
+		& $\PP^1\times\PP^1$&$\mathbb{F}_a$\\
+		\hline
+		$a_0$ & 0 & 0\\ 
+		$a_1$ & 0 & $a$\\ 
+		$a_2$ & 0 & 0\\ 
+		$a_3$ & 0 & $-a$\\ 
+	\end{tabular}
+\end{center}
+
+\begin{Lemma}
+	If $v_j$ is in the interior of the cone $\text{vcone}(-v_i,v_{i+1})$ then $v_{j+1}\not\in\text{vcone}(-v_i,-v_{i+1})$.
+\end{Lemma}
+\begin{proof}
+	Assume the contrary. We can write $v_j=-av_i+bv_{i+1}$ with $a,b\geq 1$ and $v_{j+1}=-cv_i-dv_{i+1}$ with $c,d\geq 1$. The cone $\text{vcone}(v_j,v_{j+1})$ should be smooth, but
+	$$\det[v_j\ v_{j+1}]=\begin{vmatrix}
+	-a&-c\\b&-d
+	\end{vmatrix}=ad+bc\geq 2$$
+	So this is a contradiction.
+\end{proof}
+
+\begin{exercise}
+	If $d\geq d$, then there exists $i$ such that $v_i,-v_i$ are both rays of the fan. (See Fulton for a hint.)
+\end{exercise}
+
+\begin{exercise}
+	Suppose $v_i=-v_0$ with $i\geq 3$, then there exists $0<j<i$ such that $v_j=v_{j-1}+v_{j+1}$.
+\end{exercise}
+
+\begin{theorem}
+	Every smooth complete toric surface is obtained from $\PP^2$, $\PP^1\times\PP^1$ or $\mathbb{F}_a$, $a\geq 2$ by a sequence of blowups at $(\CC^*)$-invariant points.
+\end{theorem}
+
+\begin{remark}
+	Let's say we start with a sequence $(a_0,a_1,a_2)=(-1,-1,-1)$ or $(a_0,a_1,a_2,a_3)=(0,a,0,-a)$. If our $a$-sequence is
+	$$\cdots,\underbrace{\alpha}_{v_j},\underbrace{\beta}_{v_j+1},\cdots$$
+	then if we do a blowup by adding the ray $v_j+v_{j+1}$, then we get
+	$$\underbrace{\cdots}_\text{same},\alpha+1,1,\beta+1,\underbrace{\cdots}_\text{same}$$
+	Thus, we are adding 3 each time we blow up, and so we have
+	$$\sum_{i=0}^{d-1}a_i=3d-12$$
+\end{remark}
+
+\begin{remark}
+	If we have $d$ rays, then there are $d$ corresponding curves $C_0,C_1,\cdots,C_{d-1}$. We also know that $C_i\cap C_{i+1}=1$ for all $i$. Later on we will see that this will give us the intersection numbers $C_i\cdot C_{i+1}=1$, and furthermore we will see that $C_i^2=a_i$.
+\end{remark}
+
 \newpage
 \section{Divisors, Mar 26}
 
@@ -2527,4 +2849,150 @@ Thus the real problem is what is $\mathrm{CDiv}_T~X_\Sigma$.
 		\item $\mathrm{Pic}~X_\Sigma=\mathrm{Cl}~X_\Sigma$.
 	\end{enumerate}
 \end{theorem}
+\newpage
+\section{Lecture from April 11}
+\subsection{Recall from before spring break}
+Let $X_{\Sigma}$ be a toric variety.
+\begin{itemize}
+	\item Weil divisors $D=\sum_{\rho\in\Sigma(1)}a_{\rho}D_{\rho}$.
+	\item Cartier divisors $D$ given by Cartier data $\{(U_\alpha,f_\alpha)\}$ such that $\frac{f_\alpha}{f_\beta}\in\OO_X(U_\alpha\cap U_\beta)^{*}$ (non-zero regular functions on $U_\alpha\cap U_\beta$) $\forall\alpha,\beta$.
+	\item $\Cl X_{\Sigma}=\text{WDiv}/\text{linear equivalent}=\ZZ^{\#\Sigma(1)}/M$,
+	\begin{equation*}
+		0\rightarrow M\rightarrow\ZZ^{\#\Sigma(1)}\rightarrow\Cl X_{\Sigma}\rightarrow 0,
+	\end{equation*}
+	where the map $M\to\ZZ^{\#\Sigma(1)}$ is given by the rays of $\Sigma$.
+	\item $\Picard X_{\Sigma}=\CDiv/\text{linear equivalent}$.\\
+	Let $\CDiv_{T}(X_{\Sigma})$ be the subgroup of all $T$-invariant Cartier divisors on $X_{\Sigma}$. Then
+	\begin{equation*}
+		\Picard X_{\Sigma}=\CDiv_{T}(X_{\Sigma})\hookrightarrow \Cl X_{\Sigma}.
+	\end{equation*}
+\end{itemize}
+\begin{Proposition}
+	If $\sigma$ is a pointed cone in $N_{\RR}$ and $D$ is Cartier on $U_\sigma$, then
+	\begin{enumerate}[(a)]
+		\item $\exists m\in M$ such that $D=\divof{t^m}=\sum_{\rho\in\sigma(1)}\langle m,u_{\rho}\rangle D_{\rho}$.
+		\item if $\dim\sigma=n$, then $m$ is unique.
+		\item $\Picard U_{\rho}=0$.
+	\end{enumerate}
+\end{Proposition}
+\begin{remark}
+	Often we consider the simplifying assumption on $\Sigma$: $\Sigma_{\max}=\Sigma(n)$.
+\end{remark}
+\begin{Proposition}
+	Suppose $\Sigma$ contains a cone $\sigma$ of $\dim n$, then
+	\begin{equation*}
+		\Picard X_{\Sigma}\simeq\ZZ^{r},\hspace{1cm}\text{for some }r.
+	\end{equation*}
+\end{Proposition}
+\begin{Theorem}
+	Let $X_{\Sigma}$ be a toric variety. TFAE:
+	\begin{enumerate}[(1)]
+		\item Every Weil divisor is Cartier.
+		\item $\Picard X_{\Sigma}=\Cl X_{\Sigma}$.
+		\item $X_{\Sigma}$ is smooth.
+	\end{enumerate}
+\end{Theorem}
+\begin{Def}
+	A divisor $D\subseteq\Divisor X$ is called $\Q$-\textbf{Cartier} if $\exists k>0$ integer such that $kD$ is Cartier.
+\end{Def}
+\begin{Proposition}
+	Let $X_{\Sigma}$ be a toric variety, TFAE:
+	\begin{enumerate}[(1)]
+		\item Every Weil divisor is $\Q$-Cartier.
+		\item $\Picard X_{\Sigma}\hookrightarrow\Cl X_{\Sigma}$ has finite index.
+		\item $X_{\Sigma}$ is simplicial.
+	\end{enumerate}
+\end{Proposition}
+\begin{proof}
+	exercise.
+\end{proof}
+
+\subsection{Structure of $\CDiv_{T}(X_{\Sigma})$}
+Assume $\Sigma_{\max}=\Sigma(n)$. Let $D=\sum_{\rho\in \Sigma(1)}a_{\rho}D_{\rho}$. When is $D$ Cartier?\\
+Note that $D$ is Cartier if and only if $D|_{U_\sigma}$ is Cartier for $\sigma\in\Sigma_{\max}$. This is equivalent to say that $\forall \sigma\in\Sigma(n)$, $\exists! m_{\sigma}\in M$ such that 
+\begin{equation*}
+	D|_{U_\rho}=\sum_{\rho\in\sigma(1)}a_{\rho}D_{\rho}|_{U_\rho}=\divof{t^{-m_{\sigma}}},
+\end{equation*}
+i.e., $\forall\rho\in\sigma(1)$, $a_{\rho}=-\langle m_{\sigma},u_{\rho}\rangle$.\\
+Question: How to pack this info into usable notion?
+\subsection{Continuous splines on $\Sigma$}
+\begin{Def}
+	 Let $\SplineF{\Sigma}$ be the set of all continuous functions
+		\begin{equation*}
+		\psi:|\Sigma|\to\RR
+		\end{equation*}
+		such that $\psi|_{\sigma}$ is a homogeneous linear function $\forall\sigma\in\Sigma_{\max}$. And let
+		\item \begin{equation*}
+			\SplineF{\Sigma,N}=\{\psi\in\SplineF{\Sigma}:\psi(u_{\rho}\in\ZZ)\}.
+		\end{equation*}
+\end{Def}
+\begin{Proposition}
+	$\CDiv_{T}(X_{\Sigma})\simeq\SplineF{\Sigma,N}$.
+\end{Proposition}
+\begin{proof}Consider the map:
+	\begin{align*}
+		\CDiv_{T}(X_{\Sigma})&\to\SplineF{\Sigma,N},\\
+		D&\mapsto\psi_{D}
+	\end{align*}
+	where $\psi_{D}=\langle m_\sigma,u\rangle$, $\forall u\in\sigma$. Prove that
+	\begin{align*}
+		\SplineF{\Sigma,N}&\to\CDiv_{T}(X_{\Sigma})\\
+		\psi&\mapsto\sum_{\rho\in\Sigma(1)}-\psi(u_{\rho})D_{\rho}
+	\end{align*}
+	is the inverse map (exercise).
+\end{proof}
+\begin{Eg}This is an example in which $\Picard~X_{\Sigma}\neq\Cl X_{\Sigma}$.
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.5\textwidth]{pic/Apr11_eg1}
+		\end{figure}
+\end{Eg}
+\begin{Eg}The Hirzebruch surface $\FF_2$ is smooth. So $\Divisor \FF_2=\CDiv\FF_2$ and $\Picard\FF_2=\Cl\FF_2$.
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.5\textwidth]{pic/Apr11_eg2}
+			\caption*{the Hirzebruch surface $\FF_2$}
+		\end{figure}
+\end{Eg}
+
+\subsection{Divisors and sheaves}
+Let $X$ be a normal, irreducible variety. Recall the sheaf $\OO_X$ (of rings)
+\begin{equation*}
+	\OO_X(U)=\{f:U\to\CC: f \text{ is regular on }U\}, \hspace{1cm}\text{for open subset }U\subseteq X.
+\end{equation*}
+Such an $\OO_X(U)$ is a finitely generated $\CC$-algebra.
+\begin{Def}
+	Let $D$ be an effective Weil divisor. (e.g. $D$ is a prime divisor.)
+	\begin{enumerate}[(a)]
+		\item $\OO_X(-D)\hookrightarrow\OO_X$ is the ideal sheaf of $D$, i.e. 
+		\begin{equation*}
+			\OO_X(-D)(U)=\{f\in\OO_X(U):f \text{ vanishes to order }\geq a_i \text{ along }D_i\cap U\}.
+		\end{equation*}
+		\item Let $\OO_X(D)$ be defined as $\Hom_{\OO_X}(\OO_X(-D),\OO_X)$. $\OO_X(D)$ is a rank $1$, reflexive coherent $\OO_X$-module.
+	\end{enumerate}
+\end{Def}
+If $D$ is Cartier, with local data $\{(U_\alpha,f_\alpha)\}$, then
+\begin{itemize}
+	\item $\OO_X(-D)(U_\alpha)=(f_\alpha)\OO_X(U_\alpha)$.
+	\item $\OO_X(D)(U_\alpha)=\frac{1}{f_\alpha}\OO_X(U_\alpha)$.
+	\item $\OO_X(D)$, $\OO_X(-D)$ are coherent $\OO_X$-modules, locally free of rank $1$.
+\end{itemize}
+\begin{Def}
+	An \textbf{invertible sheaf} on $X$ is a locally free, rank $1$, coherent $\OO_X$-module.
+\end{Def}
+\begin{Fact}
+	\begin{enumerate}
+		\item For $D$ a Weil divisor, on a normal, irreducible variety $X$,
+		\begin{equation*}
+		H^{0}(\OO_X(D))=\OO_X(D)(X)=\Gamma(X,\OO_X(D))
+		\end{equation*}
+		is the space of global sections of $D$, then
+		\begin{equation*}
+		H^{0}(\OO_X(D))\simeq L(D)=\{f\in\CC(X)^{*}:\divof{f}+D\geq 0\}\cup\{0\}
+		\end{equation*}
+		as $\CC$-vector spaces.
+		\item If $X$ is projective, then $\dim_\CC H^{0}(\OO_X(D))<\infty$.
+	\end{enumerate}
+	
+\end{Fact}
 \end{document}
