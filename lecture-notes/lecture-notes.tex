@@ -6,6 +6,7 @@
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\PP}{\mathbb{P}}
 \newcommand{\FF}{\mathbb{F}}
+\newcommand{\NN}{\mathbb{N}}
 \newcommand{\bfx}{\mathbf{x}}
 \newcommand{\bfy}{\mathbf{y}}
 \newcommand{\bfb}{\mathbf{b}}
@@ -68,7 +69,9 @@
 \DeclareMathOperator{\Inn}{Inn}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Spec}{Spec}
-
+\DeclareMathOperator{\Conv}{Conv}
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\supp}{supp} %Support of a monomial
 
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{amsmath, amssymb}
@@ -2995,4 +2998,280 @@ If $D$ is Cartier, with local data $\{(U_\alpha,f_\alpha)\}$, then
 	\end{enumerate}
 	
 \end{Fact}
+\newpage
+\section{Lecture from April 16}
+
+\begin{proposition}\label{p:tinv_dsum}
+If $D = \sum a_\rho D_\rho$ is a $T$-invariant Weil divisor, then
+$$
+L(D) \cong \bigoplus_{\text{\emph{div}}(t^m) + D \geq 0} \CC \cdot t^m
+$$
+\end{proposition}
+
+To prove this proposition, we will use the following lemma, whose proof is left as an exercise.
+
+\begin{Lemma}
+If $V \subseteq \CC[M]$ is a $T$-invariant $\CC$-vector space, then $V = \displaystyle \bigoplus_{m \in M,\ t^m \in V} \CC \cdot t^m$.
+\end{Lemma}
+
+\begin{proof}[Proof of Proposition~\ref{p:tinv_dsum}]
+Clearly the right hand side is contained in the left hand side, we prove the other containment.
+
+Let $g \in L(D)$, so that $\text{div}(g) + D \geq 0$. Restricting to $T$, we get that $\left. (\text{div}(g) + D ) \right|_T \geq 0$. Since $\left. D \right|_T = 0$, $\left. \text{div}(g) \right|_T  \geq 0$ and $g \in \CC[M]$. Thus, $L(D) \subseteq \CC[M] \subseteq \CC(X)$. Since $L(D)$ is $T$-invariant (because $D$ is), the previous lemma applies and we get the result.
+\end{proof}
+
+Note that $\text{div}(t^m) + D \geq 0$ says
+$$
+\sum_{\rho \in \Sigma(1)} \left( \langle m , u_\rho \rangle + a_\rho \right) D_\rho \geq 0,
+$$
+which happens if and only if $\langle m , u_\rho \rangle + a_\rho$ for all $\rho \in \Sigma(1)$.
+
+\begin{definition}[Polyhedron of $D$]
+If $D = \sum_{\rho \in \Sigma(1)} a_\rho D_\rho$, let
+$$
+P_D = \left\{ m \in M_\RR \mid \langle m , u_\rho \rangle \geq - a_\rho \text{ for all } \rho \in \Sigma(1) \right\}.
+$$
+\end{definition}
+
+\begin{remark}
+Note that we can now write
+\begin{equation}\label{eq:lin_div_poly}
+L(D) \cong \bigoplus_{m \in P_D \cap M} \CC \cdot t^m.
+\end{equation}
+Moreover, if $X$ is complete (i.e. $\Sigma$ is complete), then $\dim_\CC H^0(\mathcal{O}_X(D)) < \infty$, since the corresponding polytope is bounded.
+\end{remark}
+
+\begin{example}\label{ex:Hirzebruch_polytope}
+$X = \mathbb{F}_2$ Hirzebruch.
+\begin{center}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+\draw    (210,92) -- (210,180) ;
+\draw [shift={(210,90)}, rotate = 90] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+\draw    (298,180) -- (210,180) ;
+\draw [shift={(300,180)}, rotate = 180] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+\draw    (210,268) -- (210,180) ;
+\draw [shift={(210,270)}, rotate = 270] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+\draw    (161.86,91.76) -- (210,180) ;
+\draw [shift={(160.9,90)}, rotate = 61.39] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+\draw (125,84) node   {$( -1,2)$};
+\draw (211,79.5) node   {$( 0,1)$};
+\draw (320,180) node   {$( 1,0)$};
+\draw (205,280.5) node   {$( 0,-1)$};
+\draw (116,60) node   {$\rho _{3}$};
+\draw (208,60) node   {$\rho _{2}$};
+\draw (345,179.5) node   {$\rho _{1}$};
+\draw (205.5,302.5) node   {$\rho _{4}$};
+\draw (260,120) node   {$\sigma_{1}$};
+\draw (190,110) node   {$\sigma_{2}$};
+\draw (160,200) node   {$\sigma_{3}$};
+\draw (260,230) node   {$\sigma_{4}$};
+\end{tikzpicture}
+\end{center}
+We know $D_2 + 2D_3 + D_4 \sim 0$ and $D_1 - D_3 \sim 0$. Consider $D = aD_1 + D_2$. Find $P_a := P_D$ for this $a$. Take $m = (s,t) \in M_\RR = \RR^2$. We have the conditions
+$$
+\begin{cases}
+\langle m , (1,0) \rangle \geq -a,\\
+\langle m , (0,1) \rangle \geq -1,\\
+\langle m , (-1,2) \rangle \geq 0,\\
+\langle m , (0,-1) \rangle \geq 0
+\end{cases} \quad\text{equivalently}\quad
+\begin{cases}
+s \geq -a,\\
+t \geq -1,\\
+-s+2t \geq 0,\\
+-t \geq 0
+\end{cases}
+$$
+\end{example}
+
+\subsection{Divisor associated to a polytope}
+
+Let $P$ be a full-dimensional lattice polytope in $M_\RR$ (i.e. its vertices are in $M \subseteq M_\RR$). Let $\Sigma$ be its normal fan, and $X = X_\Sigma$ the corresponding toric variety.
+
+Example to keep in mind:
+$$
+P = \Conv \begin{bmatrix}
+0 & 1 & 0 & 3 \\
+0 & 0 & 1 & 1
+\end{bmatrix} \subseteq \RR^2,
+$$
+whose normal fan is the one in Example~\ref{ex:Hirzebruch_polytope}.
+
+For each facet $F$ of $P$, we have a ray of $\Sigma$ and $u_\rho$ (inner normal to $F$). We can write
+$$
+P = \{ m \in M_\RR \mid \langle m , u_\rho \rangle \geq - a_\rho \}
+$$
+for some unique integers $a_\rho$. Define $D_P \in \Div_T X_\Sigma$ to be the following $T$-invariant divisor:
+$$
+D_P = \sum_{\rho \in \Sigma(1)} a_\rho D_\rho.
+$$
+
+In the example, $D_P = D_3 + D_4$.
+
+\begin{proposition}
+$D_P$ is Cartier.
+\end{proposition}
+
+\begin{proof}
+Let $v$ be a vertex of $P$ and $\sigma_v \in \Sigma_{\max}$ be the corresponding maximal cone. A facet $F$ contains $v$ if and only if the corresponding ray $\rho$ is a ray of $\sigma_v$. Then, $\langle v , u_\rho \rangle = - a_\rho$ for all $\rho \in \sigma(1)$. This implies that $\left. D_P \right|_{U_{\sigma_v}}$ is Cartier, and therefore $D_P$ is Cartier with data $m_{\sigma_v} = v$.
+\end{proof}
+
+\begin{exercise}
+$D_P \not\sim 0$.
+\end{exercise}
+
+\begin{proposition}
+$L(D_P) = \displaystyle \bigoplus_{m \in P \cap M} \CC \cdot t^m$.
+\end{proposition}
+
+\begin{proof}
+Use that $P = P_{D_P}$ in \eqref{eq:lin_div_poly}.
+\end{proof}
+
+\subsection{Maps to the projective space}
+
+\paragraph{General situation:} Let $X$ be a complete (or projective) normal irreducible variety and $D$ a Cartier divisor on $X$. We know that $H^0(\mathcal{O}_X(D)) \cong L(D)$ is finite dimensional over $\CC$. Let $\{s_0,\dots,s_r\}$ be a basis of $H^0(\mathcal{O}_X(D))$.
+
+If $s \in H^0(\mathcal{O}_X(D))$ corresponds to $\varphi \in L(D)$ under the canonical isomorphism $H^0(\mathcal{O}_X(D)) \cong L(D)$, then $\text{div}_0(s) = \text{div}(\varphi) + D$.
+
+\begin{definition}
+The \emph{base locus} of $D$ is:
+$$
+\text{base}(D) = \{ p \in X \mid p \in \supp \text{div}_0(s) \text{ for all } s \in H^0(\mathcal{O}_X(D)) \}.
+$$
+$D$ is called \emph{base point free} (BPF) if $\text{base}(D) = \emptyset$.
+\end{definition}
+
+We can define a rational map
+$$
+\begin{array}{rcl}
+\varphi_D : X & \dashrightarrow & \PP^r \\
+p & \mapsto & (s_0(p), \dots , s_r(p))
+\end{array}
+$$
+which is a morphism if $D$ is base point free.
+
+\begin{example}
+Let $X = \PP^2_{x_0,x_1,x_2}$, $H = V(x_0)$, and $D = 2H$. The global sections of $\mathcal{O}_X(2H) \cong \CC[x_0,x_1,x_2]_2$. The corresponding morphism is the Veronese embedding:
+$$
+\begin{array}{rcl}
+ \varphi_D : \PP^2 & \longrightarrow & \PP^5 \\
+(x_0,x_1,x_2) & \longmapsto & (x_0^2 , x_0x_1 , x_0x_2,x_1^2,x_1x_2,x_2^2)
+\end{array}
+$$
+\end{example}
+\newpage
+\section{Lecture from April 23}
+
+\subsection{Base point free, ample and very ample divisors}
+
+Let $\Sigma$ be a complete fan and $X = X_\Sigma$. $D = \sum_{\rho \in \Sigma(1)} a_\rho D_\rho$ a Cartier divisor, with Cartier data $m_\sigma$'s (so $\langle m_\sigma , u_\rho \rangle = -a_\rho$ for all $\rho \in \sigma(1)$). We have the polytope
+$$
+P_D = \{ m \in M_\RR \mid \langle m , u_\rho \rangle \geq - a_\rho \text{ for all } \rho \in \Sigma(1) \}
+$$
+We discussed that $L(D)$ has a $\CC$-basis $\{t^m \mid m \in P_D \cap M\}$. $\text{div}_0(t^m) := \text{div}(t^m) + D \geq 0$.
+
+On $U_\sigma$, $\left. \text{div}_0(t^m) \right|_{U_\sigma} = \text{div}(t^{m-m_\sigma})$.
+
+\paragraph{Goal:} When is $D$ base point free? When is it ample? When is it very ample?
+
+\begin{example}\label{ex:BPF_F2}
+Consider the fan in Example~\ref{ex:Hirzebruch_polytope}, corresponding to the surface $X = \mathbb{F}_2$.
+
+Recall that $\text{div}(s) = D_1 - D_3$, $\text{div}(t) = D_2 + 2D_3 - D_4$, so the Picard group of $X$ is generated by $D_1$ and $D_2$. We considered the divisor $D^{(a)} = a D_1 + D_2$.
+\begin{center}
+\begin{tabular}{c|c|c}
+$a$ & $P_a$ & Global sections \\ 
+\hline 
+$a=1$ & $\Conv \begin{bmatrix} 0 & -1 & -1 \\ 0 & 0 & -1/2 \end{bmatrix}$ & $1,s^{-1}$ \\ 
+\hline 
+$a=2$ & $\Conv \begin{bmatrix} 0 & -2 & -2 \\ 0 & 0 & -1 \end{bmatrix}$ & $1,s^{-1},s^{-2},s^{-2}t^{-1}$ \\ 
+\hline 
+$a=2$ & $\Conv \begin{bmatrix} 0 & -3 & -3 & -2 \\ 0 & 0 & -1 & -1 \end{bmatrix}$ & $1,s^{-1},s^{-2},s^{-3},s^{-2}t^{-1},s^{-3}t^{-1}$ \\ 
+\end{tabular} 
+\end{center}
+E.g. for $a = 3$, $\text{div}_0(s^{-2}t^{-1}) = \text{div}(s^{-2}t^{-1}) + 3D_1+D_2 = D_1 + D_4$.
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c}
+Patches & & $t^{-m_\sigma}$ & $D_1+D_2$ ($a=1$) & $2D_1+D_2$ ($a=2$) & $3D_1+D_2$ ($a=3$) \\
+\hline
+$\sigma_1$ & $\CC[s,t]$ & $s^a t$ & $(st,t)$ & $(s^2t, st, t, 1)$ & $(s^3t,s^2t,st,t,s,1)$ \\
+\hline
+$\sigma_2$ & $\CC[s^{-1},s^{2}t]$ & $s^2 t$ & $(s^2t,st)$ & ${\color{blue}(s^2t,st,t,1)}$ & ...\\
+\hline
+$\sigma_3$ & $\CC[s^{-1},s^{-2}t^{-1}]$ & $1$ & $(1,s^{-1})$ & $(1,s^{-1},s^{-2},s^{-2}t^{-1})$ & ... \\
+\hline
+$\sigma_4$ & $\CC[s,t^{-1}]$ & $s^a$ & $(s,1)$ & ... & ... \\
+\hline
+&&& not BPF & BPF & BPF \\
+&&&& not very ample & very ample
+\end{tabular}
+\end{center}
+
+Given $D$ and global sections $t^{m_1},\dots,t^{m_s}$, we had a map
+$$
+X \xrightarrow{(t^{m_1},\dots,t^{m_s})} \PP^{s-1}
+$$
+For example, for $D = 2D_1+D_2$ ($a=2$), this map is given by:
+$$
+\begin{array}{cl}
+U_{\sigma_1} \longrightarrow \PP^3 & : (u,v) \longmapsto (u^2v,uv,v,1) \\
+U_{\sigma_2} \longrightarrow \PP^3 & : (u,v) \longmapsto (v,uv,u^2v,1) \\
+\vdots
+\end{array}
+$$
+In $U_{\sigma_2}$, we are setting $u = s^{-1}$ and $v=s^2t$, so ${\color{blue}(s^2t,st,t,1)} = (v,uv,u^2v,1)$
+
+Note that in $\PP^3_{x,y,z,w}$, the image satisfies $y^2 = xz$. In fact the image of this map is the singular quadratic cone $y^2 = xz$.
+\end{example}
+
+\begin{proposition}
+Let $\Sigma$ be a complete fan and $X = X_\Sigma$. Let $D = \sum_{\rho \in \Sigma(1)} a_\rho D_\rho$ be a Cartier divisor with Cartier data $\{m_\sigma\}_{\sigma \in \Sigma(n)}$. Then, $D$ is BPF if and only if $m_\sigma \in P_D$ for all $\sigma \in \Sigma(n)$.
+\end{proposition}
+
+\begin{proof}
+In Cox, Little and Schenck, just follow the example.
+\end{proof}
+
+\begin{remark}
+Recall that if $P \subseteq M_\RR$ is a full dimensional lattice polytope and $X = X_{\Sigma_P}$, we have a Cartier divisor $D_P$ on $X$ whose $m_\sigma$'s are the vertices of $P$. Explicitly,
+$$
+D_P = \sum_{\rho \in \Sigma(1)} a_\rho D_\rho,
+$$
+where
+$$
+P = \{ m \in M_\RR \mid \langle m , u_\rho \rangle \geq - a_\rho \}.
+$$
+In this case $D_P$ is BPF, since each $m_\sigma \in P_{D_P} = P$.
+\end{remark}
+
+\begin{proposition}
+Let $X = X_\Sigma$ for a complete fan $\Sigma$, and $D$ a Cartier divisor with data $\{m_\sigma\}_{\sigma \in \Sigma(n)}$. Then, $D$ is BPF if and only if $m_\alpha \in P_D$ for all $\sigma \in \Sigma(n)$ if and only if $P_D = \Conv(m_\sigma \mid \sigma \in \Sigma(n))$.
+\end{proposition}
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+\subsection{Ample \& very ample}
+
+In the general situation, $X$ is a normal irreducible complete variety and $D$ a BPF Cartier divisor of $X$. Let $\{f_0,\dots,f_s\}$ be a basis for $H^0(\mathcal{O}_X(D))$ and consider the map
+$$
+\varphi_D : X \xrightarrow{(f_0,\dots,f_s)} \PP^{s-1}
+$$
+Note that $\varphi_D$ is a morphism, since $D$ is BPF, and $X_0 = \varphi_D(X) \subseteq \PP^{s-1}$ is a closed subvariety, since $X$ is complete.
+\begin{enumerate}[(a)]
+\item $D$ is \emph{very ample} if $\varphi_D : X \longrightarrow X_0$ is an isomorphism.
+\item $D$ is \emph{ample} if $kD$ is very ample for some $k \in \ZZ_{\geq 0}$. 
+\end{enumerate}
+
+In Example~\ref{ex:BPF_F2}, we had that $D_1+D_2$ is not BPF, $2D_1+D_2$ is not very ample, but is it ample? $3D_1+D_2$ is (it turns out) very ample.
+
+\begin{definition}
+A full dimensional lattice polytope $P \subseteq M_\RR$ is called \emph{very ample} if for every vertex $m_\sigma$ of $P$ (for $\sigma \in \Sigma(n)$) the semigroup $\NN(P\cap M - m_\sigma)$ is saturated.
+\end{definition}
+
+Recall that a semigroup $S \subseteq M$ is saturated if $km \in S$ (for $k \in \ZZ_{\geq 1}$, $m \in M$) implies $m \in S$.
+
+
 \end{document}
