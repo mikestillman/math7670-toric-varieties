@@ -3273,5 +3273,267 @@ A full dimensional lattice polytope $P \subseteq M_\RR$ is called \emph{very amp
 
 Recall that a semigroup $S \subseteq M$ is saturated if $km \in S$ (for $k \in \ZZ_{\geq 1}$, $m \in M$) implies $m \in S$.
 
+\newpage
+\section{Lecture from April 25}
+
+Last time, we discussed base-point-freeness (BPF): $D$ BPF $\Leftrightarrow$ $P_D = \Conv (m_\sigma)$.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{pic/Apr_25_cone}
+\end{figure}
+
+\begin{remark}
+	If P is a polytope in $M_\mathbb{R}$, then $ C(P) = \text{cone}(P \times \{1\}) \subseteq M_\mathbb{R} \times \mathbb{R}$.
+\end{remark}
+
+In the figure above, note that $C(P) \cap (z=d) = dP$.
+
+\begin{definition}
+	Let $P \subseteq M_\mathbb{R}$ be a lattice polytope. $P$ is \textit{normal} if the semigroup $C(P) \cap (M \times \mathbb{Z})$ is generated at level 1.
+\end{definition}
+
+\begin{exercise}
+	Consider
+	\begin{equation}
+		P = \Conv \begin{pmatrix}
+		0 & 1 & 0 & 1\\
+		0 & 0 & 1 & 1\\
+		0 & 0 & 0 & 3\\
+		\end{pmatrix}.
+	\end{equation}
+	\begin{itemize}
+		\item Show that $P$ is not very ample.
+		\item Consider $X = X_P$, compute Cl(X), Pic(X) for all $D \in \text{Pic}(X)$ and determine whether $D$ is ample, very ample, BPF.
+		\item How about $D_P$?
+	\end{itemize}
+\end{exercise}
+
+\begin{proposition}\label{prop:polyample}
+	If P is a normal, full dimensional lattice polytope, then P is very ample.\footnote{ CLS prop 2.2.18, pg 71}
+\end{proposition}
+\begin{proposition}\label{prop:polynormal}
+	If P is a full dimensional lattice polytope,
+	\begin{enumerate}
+		\item if $\text{dim}(P) = 2$, then P is normal.
+		\item if $\text{dim}(P)>2$, then kP is normal for all $k \geq \text{dim}(P)-1$ integer.\footnote{CLS prop 2.2.12}
+	\end{enumerate}
+\end{proposition}
+\begin{theorem}
+	Let P be a full dimensional lattice polytope, $X=X_P$ and $D_P \in \text{Div}(X)$.
+	\begin{enumerate}
+		\item $D_P$ is BPF and also ample.
+		\item If $n=dim(P) \geq 2$, then $k D_P$ is very ample.
+		\item $D_P$ is very ample $\Leftrightarrow$ $P$ is very ample.
+	\end{enumerate}
+\end{theorem}
+The sketch of the proof is as follows.
+\begin{proof}
+\begin{enumerate}
+	\item We've already seen that $D_P$ is BPF.
+	\item Proposition \ref{prop:polyample} and \ref{prop:polynormal} imply that $kP$ is very ample $\forall k \geq n-1$.
+	\item If we prove $P$ very ample $\Leftrightarrow$ $D_P$ very ample, then we have shown that $D_P$ is ample. 
+\end{enumerate}
+So, we need to prove the last item. From last time: $\varphi_D: X \rightarrow \mathbb{P}^{s-1}$ where $D = D_P$ and $s$ is the number of lattice points of $P$, since $P = P_D$ for $\sigma \in \Sigma (n)$ where $\Sigma$ is the normal fan of $P$.
+\begin{equation}
+	\varphi_D |_{U_\sigma} : U_{\sigma} \rightarrow \mathbb{P}^{s-1}_{x_1,\dotsc,x_s},\,\{m_1,\dotsc,m_s\}=P \cap M
+\end{equation}
+The map is given by $(t^{m_1 - m_\sigma},\dotsc,t^{m_s-m_\sigma})$ where $m_i = m_\sigma$ for one of the $i$. So, $\varphi_D |_{U_\sigma} :U_{\sigma} \rightarrow (x_i \neq 0)$, i.e. an open subset of $\mathbb{P}^s$.
+
+TFAE,
+\begin{enumerate}
+	\item $\varphi_D$ is an isomorphism to its image.
+	\item $\varphi_\sigma := \varphi_D |_{U_\sigma} :U_{\sigma} \rightarrow \text{image} (\varphi_\sigma) \subseteq V_i= \mathbb{C}^{s-1}$  is an isomorphism.
+	\item $\mathbb{C}[\mathbb{N}(m_1 - m_\sigma, \dotsc, m_s-m_\sigma)] \rightarrow \mathbb{C}[-\sigma^{\vee}\cap M]$ is an isomorphism.
+	\item $\mathbb{N}(m_1 - m_\sigma, \dotsc, m_s-m_\sigma)$ is saturated.
+	\item $P$ is very ample.
+\end{enumerate}
+\end{proof}
+
+\subsection{Convexity}
+Suppose, $\Sigma$ is complete, $X = X_\Sigma$ and $D = \sum a_\rho D_\rho$ is Cartier. We have,
+\begin{enumerate}
+	 \item $D : N_\mathbb{R} \rightarrow \mathbb{R}$.
+	 \item $\psi_D(u) = \langle m_\sigma,u\rangle $.
+	 \item $\psi_D$ is continuous.
+	 \item $\psi_D(u_\rho)=-a_\rho$.
+	 \item $\psi_{kD} = k\psi_D$.
+\end{enumerate}
+\begin{definition}
+	A function $\psi:N_\mathbb{R} \rightarrow \mathbb{R}$ is convex if $\psi(tu + (1-t)v) \geq t\psi(u) + (1-t)\psi(v)\quad \forall u,v \in N_\mathbb{R},\, t\in[0,1]$.
+\end{definition}
+\begin{Lemma}
+	Let D be a Cartier divisor, TFAE,
+	\begin{enumerate}
+		\item $\psi_D$ is convex.
+		\item $\psi_D(u) \leq \langle m_\sigma,u\rangle  \forall \sigma \in \Sigma(n), \forall u\in N_\mathbb{R}$
+		\item $\psi_D(u) = min(m_\sigma,u), \quad \sigma \in \Sigma(n)$.
+	\end{enumerate}
+\end{Lemma}
+\begin{proof}
+	Let $u \in N_\mathbb{R}$, $\sigma \in \Sigma(n)$, $v\in \text{int}(\sigma)$. Then, $\exists \quad tu + (1-t)v \in \text{int}(\sigma)$ and we have $\psi_D(tu + (1-t)v) = \langle m_\sigma,tu+(1-t)v\rangle  \geq t\psi_D + (1-t)\psi_D(v)$. So, $t \langle m_\sigma,u\rangle  \geq t \psi_D(u)$.
+\end{proof}
+
+\begin{Lemma}
+	$P_D = \{ m \in M_\mathbb{R}: \psi_D(u) \leq \langle m,u \rangle \quad \forall u \in N_\mathbb{R}\}$.
+\end{Lemma}
+\begin{proof}
+	$m \in \text{RHS} \rightarrow \psi_D(u) \leq \langle m,u \rangle \rightarrow m \in P_D$. 
+	
+	$m \in P_D \rightarrow$ Let $\sigma$ be such that $u \in \sigma$.
+	
+	$\therefore u = \sum_{\rho \in \sigma(1)} \lambda_\rho u_\rho$.
+	
+	$\therefore \langle m,u \rangle = \sum \lambda_\rho \langle m, u_\rho \rangle = - \sum \lambda_\rho a_\rho = \sum \lambda_\rho \psi_D(u_\rho) = \psi_D(\sum \lambda_\rho u_\rho) = \psi_D(u)$.
+\end{proof}
+\begin{theorem}
+	Assume $|\Sigma| = N_\mathbb{R}$ and $\psi_D$ is the support function for a Cartier divisor $D$. TFAE
+	\begin{enumerate}
+		\item $D$ is BPF.
+		\item $P_D = \Conv (m_\sigma: \sigma \in \Sigma(n))$.
+		\item $\psi_D$ is convex.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	We did $(1) \Leftrightarrow (2)$ last time. We want to show that $\psi_D$ convex $\Leftrightarrow$ $m_\sigma \in P_D \quad \forall \sigma$.
+	We have $\psi_D$ convex $\Leftrightarrow$ $\psi_D(u) = \text{min} \langle m_\sigma, u \rangle \Leftrightarrow \psi_D(u) \leq \langle m,u \rangle \quad \forall \sigma, u \Leftrightarrow m_\sigma \in P_D \quad \forall \sigma$. 
+\end{proof}
+\begin{exercise}
+	Visualize the function $\psi_{a D_1 + D_2}$ on $\mathbb{F}_2$. Also consider $D_1$, $-D_1$.
+\end{exercise}
+
+\newpage
+
+\section{Lecture from April 30}
+Here's the situation we consider: $X = X_\Sigma$, $\Sigma$ complete, $D = \sum a_\rho D_\rho$ Cartier, $\psi_D(u) = \langle m_\sigma, u \rangle \, \forall u \in \sigma$ and $P_D = \{ m \in M_\mathbb{R}: \langle m,u_\rho \rangle \geq -a_\rho\} \subseteq M_\mathbb{R}$. If $D$ is BPF: $\psi_D$ is convex, $\psi_D(u)=\text{min} \langle m_\sigma, u \rangle, \, \sigma \in \Sigma(\sigma)$ and $P_D = \Conv(m_\sigma)$.
+
+\subsection{Ampleness and Very Ampleness}
+\begin{definition}
+	$\psi_D$ is strictly convex if,
+	\begin{enumerate}
+		\item $\psi_D$ is convex.
+		\item $\langle m_\sigma, u \rangle = \psi_D(u) \Leftrightarrow u \in \sigma$.
+	\end{enumerate}
+\end{definition}
+Note that $\psi_D$ is strictly convex if and only if $m_\sigma \neq m_{\sigma'} \, \forall \, \sigma \neq \sigma' \in \Sigma(n)$.
+
+\begin{theorem}
+	Given $X=X_\Sigma$ complete, $D$ a BPF Cartier divisor, then $D$ is ample if and only if $\psi_D$ is strictly convex. In addition, if $D$ is ample, then $kD$ is very ample.
+\end{theorem}
+\begin{proof}
+	If D is very ample,
+	\begin{enumerate}
+		\item $m_\sigma$'s are all distinct.
+		\item $P_D$ is full dimensional.
+		\item Normal fan of $P_D$ is $\Sigma$.
+	\end{enumerate}
+	Ideas for showing these:
+	
+	For (1) if the $m_\sigma$'s are not all distinct, show that $\exists \sigma, \sigma' \in \Sigma(n)$ such that $\tau = \sigma \cap \sigma' \in \Sigma(n-1)$ is a "wall" and $m_\sigma = m_{\sigma'}$. $V(\tau) \subseteq X$ is a curve. $V(\tau) \subseteq U_\sigma \cup U_{\sigma'}$ and $V(\tau) \sim \mathbb{P}^1$. We have
+	\begin{equation}
+		\begin{aligned}
+		\psi_D: X &\rightarrow \mathbb{P}^{s-1} \\
+		U_\sigma &\rightarrow U_i \\
+		U_\sigma \cup U_{\sigma'} &\rightarrow U_i \\
+		V(\tau) &\rightarrow \text{point}
+		\end{aligned}
+	\end{equation}
+	which is a contradiction to the very ampleness of $D$.
+	
+	For (3), the fact that $m_\sigma$'s are all distinct $\rightarrow$ $P_D$ has a facet for each ray of $\Sigma$ and $\therefore$ $\Sigma$ is the normal fan of $P_D$. This in turn implies that $P_D$ is full dimensional. Then, 
+	\begin{equation}
+		\begin{aligned}
+		\text{D is ample} &\rightarrow kD \text{is very ample}. \\
+		&\rightarrow m_\sigma \text{'s are all distinct.}\\
+		&\rightarrow m_\sigma \text{'s for D are also distinct}.	
+		\end{aligned}
+	\end{equation}
+	Going the other way, assuming $m_\sigma$'s are all distinct: $P_D$ has normal fan $\Sigma$, $k P_D, \, k \geq \text{dim}(X)$ is very ample, $kD$ is very ample, $D$ is ample.
+\end{proof}
+Note that in general, it is hard to compute $P_D$, $P_{kD}$, $\psi_D$, $\psi_{kD}$. We have $P_{kD}=kP_D$, $\psi_{kD}=k\psi_D$ and it is hard to distinguish ample/very ample this way.
+\begin{corollary}
+	If $X=X_\Sigma$ is smooth and complete then $D$ is ample if and only if it is very ample.
+\end{corollary}
+
+\subsection{Homogeneous Coordinate Ring}
+
+Recall that for $X=\mathbb{P}^n$, let $S = \mathbb{C}[x_0,\dotsc,x_n]$,
+\begin{enumerate}
+	\item $S$ is graded: $\text{deg}(x_i)=1\,\forall i$.
+	\item $\mathbb{P}^n = (\mathbb{C}^{n+1} \setminus \text{origin})/(x_0,\dotsc,x_n)\sim (\lambda x_0,\dotsc,\lambda x_n)\,\forall \lambda \in \mathbb{C}^*$
+	\item Subvarieties of $\mathbb{P}^n:$ $\langle f_1,\dotsc,f_s \rangle = I \subseteq S$ is a homogeneous ideal. Then, $V(I)=\mathbb{V}(f_1,\dotsc,f_s) \subseteq \mathbb{P}^n$.
+	\item Coherent sheaves $\leftrightarrow$ f.g. graded $S$-modules.
+	
+	$\tilde{M} \leftrightarrow M$.
+	\item Line bundles on $\mathbb{P}^n$,
+	
+	$\text{Pic} (\mathbb{P}^n) = \mathbb{Z}, \qquad d \leftrightarrow \mathcal{O}_{\mathbb{P}^n(d)}=\tilde{S(d)}$
+	satisfies,
+	
+	$H^0(\mathcal{O}_{\mathbb{P}^n(d)})=S_d$.
+	So,
+	
+	$S = \displaystyle \bigoplus_{d=0} S_d = \bigoplus_{d \in \text{Pic}(\mathbb{P}^n)}H^0(\mathcal{O}_{\mathbb{P}^n(d)}(d))$.
+\end{enumerate}
+As before, we consider the situation where $\Sigma$ is a complete fan, $X=X_\Sigma$. We order the rays $\{ p_1,\dotsc,p_r \}=\Sigma(1)$. We know that,
+\begin{equation}
+	0 \rightarrow \mathbb{Z}^n \rightarrow \mathbb{Z}^r \rightarrow Cl(X) \rightarrow 0.
+\end{equation}
+Let $S=\mathbb{C}[x_1,\dotsc,x_r]$. Grade $S$ by degree:
+\begin{equation}
+	\text{deg}(x_\rho) = \text{deg}(e_\rho) = [D_\rho],
+\end{equation}
+where $\text{deg}(e_\rho)$ is the image in $Cl(X)$ of $e_i$. For $\alpha \in Cl(X)$, let $S_\alpha = \mathbb{C}\text{-span}(x^A:\text{deg}(x^A)=\alpha)$. Then,
+\begin{equation}
+	S = \displaystyle \bigoplus_{x \in Cl(X)}S_\alpha \qquad \text{and} \qquad S_\alpha S_\beta \subseteq S_{\alpha + \beta}.
+\end{equation}
+So, $S$ is a graded ring.
+\begin{example}
+	Consider $\mathbb{P}^n$. $Cl(\mathbb{P}^n)=\mathbb{Z}$, there are $n+1$ rays. $S = \mathbb{C}[x_0,\dotsc,x_n]$.
+	\begin{equation}
+		0 \rightarrow \mathbb{Z}^n \rightarrow \mathbb{Z}^{n+1} \rightarrow \mathbb{Z} \rightarrow 0.
+	\end{equation}
+\end{example}
+\begin{example}
+	Consider $\mathbb{F}_n$. $Cl(\mathbb{F}_n)=\mathbb{Z}^2$. $S=\mathbb{C}[x_1,\dotsc,x_4]$,
+	\begin{equation}
+	0 \rightarrow \mathbb{Z}^2 \rightarrow \mathbb{Z}^{4} \rightarrow \mathbb{Z}^2 \rightarrow 0.
+	\end{equation}
+	\begin{equation}
+		\begin{aligned}
+		\text{deg}(x_1) &= \text{deg}(x_3) = (1,0)\\
+		\text{deg}(x_2) &= (0,1)\\
+		\text{deg}(x_1) &= (a,1)
+		\end{aligned}
+	\end{equation}
+\end{example}
+Note that $\mathbb{P}^1 \times \mathbb{P}^1 = \mathbb{F}_{a=0}$, $S=\mathbb{C}[x_1,\dotsc,x_4]$, $\text{deg}(x_1) = \text{deg}(x_3) = (1,0)$, $\text{deg}(x_2) = \text{deg}(x_4) = (0,1)$.
+\begin{proposition}
+	Let $\alpha \in Cl(X)$. Then,
+	\begin{equation}
+		S_\alpha = H^0(\mathcal{O}_X(\alpha))
+	\end{equation}
+	Note that $\mathcal{O}_X(\alpha) = \mathcal{O}_X(D)$ for any $D$ such that $[D]=\alpha$.
+\end{proposition}
+\begin{proof}
+	Recall that if $[D]=\alpha$, then $H^0(\mathcal{O}_X(\alpha))=\mathbb{C}\cdot \{ t^m, m \in P_D \cap M \}$.
+	Note that if $[D]=[E]=\alpha$, then, $D = \text{div}(t^m)+E$ for some m. Then, $P_D = P_E \pm m$.
+	We want a bijection of $P_D \cap M$ and $S_{\text{deg(D)}}$, $D = \sum a_\rho D_\rho$. We have, $m \in P_D \cap M \leftrightarrow m\in M \qquad \langle m, u_\rho \rangle \geq -a_\rho$. We can associate with $m$ a monomial in $S$:
+	\begin{equation}
+		\text{deg}(\prod_{\rho \in \Sigma(1)} x_\rho^{\langle m, u_\rho \rangle + a_\rho}) = \sum_\rho (\langle m,u_\rho \rangle + a_\rho)[D_\rho] = \sum_\rho a_\rho [D_\rho] = \alpha.
+	\end{equation}
+	The other direction: from $x^A$ of degree $[D]$, get a monomial $m$.
+\end{proof}
+\begin{example}
+	Consider $X=\mathbb{F}_2$. $S = \mathbb{C}[x_1,\dotsc,x_4]$. The degrees are $\begin{bmatrix}1 & 0 & 1 & 2 \\ 0 & 1 & 0 & 1 \end{bmatrix}$.
+	\begin{equation}
+		\begin{aligned}
+		H^0(\mathcal{O}_X(D_1 + D_2)) &= S_{(1,1)} = \text{span}(x_1 x_2,x_3 x_2) \\
+		H^0(\mathcal{O}_X(2D_1 + D_2)) &= S_{(2,1)} = \text{span}(x_1^2 x_2,x_1 x_3 x_2, x_3^2 x_2, x_4) \\
+		H^0(\mathcal{O}_X(3D_1 + D_2)) &= S_{(3,1)} = \text{span}(\text{6 monomials}).
+		\end{aligned}
+	\end{equation}
+	We get $X \hookrightarrow \mathbb{P}^5$, the image is a rational normal scroll.
+\end{example}
 
 \end{document}
